@@ -87,7 +87,7 @@ class TanahController extends Controller
         return view('/tanah.senarai', compact('tanah'));
     }
 
-    //TAMBAH MAKLUMAT TANAH
+    //TAMBAH MAKLUMAT TANAH 11/1/23
     function tambah(){
         // $tanah = Tanah::find($tanah_id);
         // session([

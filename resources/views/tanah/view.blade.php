@@ -376,7 +376,7 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-12">
-            <a href="#" rel="noopener" target="_blank" class="btn btn-danger"><i class="fas fa-chevron-left"></i> Kembali</a>
+            <a href="/tanah/senarai" rel="noopener" class="btn btn-danger"><i class="fas fa-chevron-left"></i> Kembali</a>
             <a href="#" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
             <a href="/tanah/ubah/{{ $tanah->tanah_id }}" class="btn btn-success float-right"><i class="fas fa-cog"></i> Kemakini
             </a>

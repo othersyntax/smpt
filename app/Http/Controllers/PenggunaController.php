@@ -85,6 +85,7 @@ class PenggunaController extends Controller
             $user->user_crtby = session('loginID');
             $user->user_updby = session('loginID');
             $user->user_crtdate = date('Y-m-d H:i:s');
+
         }
         else{
             $user = Pengguna::find($user_id);
@@ -103,15 +104,15 @@ class PenggunaController extends Controller
         // dd($moduls);
         $simpan = $user->save();
         if($simpan){
-            //insert User Modul
-            foreach($moduls as $mdl){
-                $UModul = new UserModul;
-                $UModul->um_user_id = $user_id;
-                $UModul->um_modul_id = $mdl;
-                $UModul->um_created_by=session('loginID');
-                $UModul->um_updated_by=session('loginID');
-                $UModul->save();
-            }
+            //insert User Modul ///Guna nanti yg ni utk masuk multiple modul
+            // foreach($moduls as $mdl){
+            //     $UModul = new UserModul;
+            //     $UModul->um_user_id = $user_id;
+            //     $UModul->um_modul_id = $mdl;
+            //     $UModul->um_created_by=session('loginID');
+            //     $UModul->um_updated_by=session('loginID');
+            //     $UModul->save();
+            // }
 
             $output='';
             $user = DB::table('tbluser')
@@ -165,6 +166,10 @@ class PenggunaController extends Controller
         echo $output; 
     }
 
+    function tambah(){
+        return view('utiliti/pengguna.tambah');
+    }
+
     function ubah(Request $req){
         $user = Pengguna::find($req->user_id);
         // $user = DB::table('tbluser')
@@ -172,6 +177,10 @@ class PenggunaController extends Controller
         //                 ->select('tbluser.*', 'tbluser_module.um_modul_id')                        
         //                 ->where('tbluser.user_id',$req->user_id)
         echo json_encode($user);
+    }
+
+    function papar(Request $req){
+        return view('utiliti/pengguna.ubah');
     }
 
     function setKatalaluan(Request $req){

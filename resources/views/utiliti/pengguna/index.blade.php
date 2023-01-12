@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="col-sm-12"> 
                             <div class="text-right">  
-                                <button type="button" name="add" id="add" class="btn btn-primary">Tambah</button>  
+                                <a href="/utiliti/pengguna/tambah" class="btn btn-primary">Tambah</a>
                             </div>
                         </div>
                         <div class="col-sm-12 mt-2">
@@ -167,7 +167,7 @@
                                                             
                                 </div>  
                             </div>
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <div class="form-group ">
                                     <label for="Modul" class="form-label">Modul</label>
                                     <div class="form-check">
@@ -183,7 +183,7 @@
                                         <label for="Utiliti" class="form-check-label">Utiliti</label>
                                     </div>                                                                                        
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>   
                     <div class="modal-footer justify-content-between">

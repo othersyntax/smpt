@@ -109,7 +109,18 @@
                             <!-- /.tab-pane -->
 
                             <div class="tab-pane" id="modul">
-                                <table class="table">
+                                @php
+                                $modul = \Illuminate\Support\Facades\DB::select("SELECT
+                                            tbluser_module.user_module_id,
+                                            tbluser_module.um_user_id,
+                                            if(tbluser_module.um_status=1,'',
+                                            tbluser_module.um_modul_id,
+                                            tblmodule.mod_name
+                                            FROM
+                                            tbluser_module
+                                            LEFT JOIN tblmodule ON tbluser_module.um_modul_id = tblmodule.module_id");
+                                @endphp
+                                <table class="table">                                    
                                     <thead>
                                     <tr>
                                         <th>Bil.</th>

@@ -135,7 +135,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="user_name" class="form-label">No. Kad Pengenalan</label>                                    
-                                    {{ Form::text('user_nokp',null,['readonly', 'class'=>'form-control', 'id'=>'user_nokp']) }}
+                                    
                                 </div>                                                           
                             </div>                            
                             <div class="col-sm-8">
@@ -167,23 +167,6 @@
                                                             
                                 </div>  
                             </div>
-                            <!-- <div class="col-sm-6">
-                                <div class="form-group ">
-                                    <label for="Modul" class="form-label">Modul</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="user_modul[]" value="1">
-                                        <label for="Tanah" class="form-check-label">Tanah</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="user_modul[]" value="2">
-                                        <label for="Premis" class="form-check-label">Premis Demis</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="user_modul[]" value="3">
-                                        <label for="Utiliti" class="form-check-label">Utiliti</label>
-                                    </div>                                                                                        
-                                </div>
-                            </div> -->
                         </div>
                     </div>   
                     <div class="modal-footer justify-content-between">

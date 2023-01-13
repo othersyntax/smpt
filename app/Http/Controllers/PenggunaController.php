@@ -34,12 +34,7 @@ class PenggunaController extends Controller
         }
 
         if ($queryType == 1) {
-            $user = DB::table('tbluser')
-                        ->leftJoin('tblptj', 'tbluser.user_jkn','=', 'tblptj.ptj_id')
-                        ->select('tbluser.*', 'tblptj.ptj_nama')
-                        ->orderBy('tbluser.user_name')
-                        ->paginate(20);
-            $data['user'] = $user;
+            $data['user']= $this->getPenggunaData();
         } 
         else {
             $query = DB::table('tbluser')
@@ -76,94 +71,53 @@ class PenggunaController extends Controller
         return view('utiliti/pengguna.index', $data);
     }
 
-    function simpan(Request $req){
-        $user_id = $req->user_id;
+    function simpan(Request $req){        
 
         if(empty($user_id)){
             $user = new Pengguna();
-            $user->user_pswd = Hash::make($user->user_nokp);        
+            $user->user_pswd = Hash::make($user->user_nokp);
+            $user_id = $req->user_id;
+            $user->user_name = $req->user_name;
+            $user->user_nokp = $req->user_nokp;
+            $user->user_email = $req->user_email;
+            $user->user_role = $req->user_role;
+            $moduls = $req->user_modul;
+            
+            $user->user_jkn = $req->user_jkn;       
             $user->user_crtby = session('loginID');
             $user->user_updby = session('loginID');
             $user->user_crtdate = date('Y-m-d H:i:s');
 
+            $simpan = $user->save();
+
+            // dd($simpan);
+            if($simpan){
+                //insert User Modul ///Guna nanti yg ni utk masuk multiple modul
+                foreach($moduls as $mdl){
+                    $UModul = new UserModul;
+                    $UModul->um_user_id = $user->user_id;
+                    $UModul->um_modul_id = $mdl;
+                    $UModul->um_created_by=session('loginID');
+                    $UModul->um_updated_by=session('loginID');
+                    $UModul->save();
+                }
+            }
+
         }
         else{
             $user = Pengguna::find($user_id);
+            $user_id = $req->user_id;
+            $user->user_name = $req->user_name;
+            $user->user_nokp = $req->user_nokp;
+            $user->user_email = $req->user_email;
+            $user->user_role = $req->user_role;
+            
+            $user->user_jkn = $req->user_jkn;
             $user->user_updby = session('loginID');
+            $simpan = $user->save();
         }
 
-        $user->user_name = $req->user_name;
-        $user->user_nokp = $req->user_nokp;
-        $user->user_email = $req->user_email;
-        $user->user_role = $req->user_role;
-        $moduls = $req->user_modul;
-        
-        $user->user_jkn = $req->user_jkn;
-        // $user->user_state = 16; //dummy dulu tak perlu dah selepas ini
-
-        // dd($moduls);
-        $simpan = $user->save();
-        if($simpan){
-            //insert User Modul ///Guna nanti yg ni utk masuk multiple modul
-            // foreach($moduls as $mdl){
-            //     $UModul = new UserModul;
-            //     $UModul->um_user_id = $user_id;
-            //     $UModul->um_modul_id = $mdl;
-            //     $UModul->um_created_by=session('loginID');
-            //     $UModul->um_updated_by=session('loginID');
-            //     $UModul->save();
-            // }
-
-            $output='';
-            $user = DB::table('tbluser')
-                        ->leftJoin('tblptj', 'tbluser.user_jkn','=', 'tblptj.ptj_id')
-                        ->select('tbluser.*', 'tblptj.ptj_nama')
-                        ->orderBy('tbluser.user_name')
-                        ->paginate(20);
-            $output .= '  
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <th class="text-center" width="5%">No.</th>
-                        <th width="15%">No. Kad Pengenalan</th>
-                        <th width="30%">Nama</th>
-                        <th width="20%">E-Mel</th>
-                        <th width="15%">JKN / PTJ / PK</th>
-                        <th width="10%">Peranan</th>
-                        <th class="text-center" width="5%">Tindakan</th>
-                    </thead>
-                    <tbody>
-                ';  
-            $mesej = 'Anda pasti untuk set semula katalaluan?';
-            $no = $user->firstItem();
-            foreach($user as $usr){
-                $output .= '                                                     
-                    <tr>
-                        <td class="text-center">'.$no++.'</td>
-                        <td>'.$usr->user_nokp.'</td>
-                        <td>'.$usr->user_name.'</td>
-                        <td>'.$usr->user_email.'</td>
-                        <td>'.$usr->ptj_nama.'</td> 
-                        <td>'.aliasPeranan($usr->user_role).'</td>                                
-                        <td class="text-center">
-                            <a href="#" id="'.$usr->user_id.'" class="btn btn-xs btn-default edit_user" title="Kemaskini">
-                                <i class="text-purple fas fa-edit"></i>
-                            </a>
-                            <a href="#" onclick=" return confirm('.$mesej.')" class="btn btn-xs btn-default" title="Set Katalaluan">
-                                <i class="text-danger fas fa-key"></i>
-                            </a>
-                        </td>
-                    </tr>
-                ';  
-            }
-
-            $output .= '</tbody>
-                        </table>'; 
-           
-        }
-        else{
-            $output='Gagal';
-        }
-        echo $output; 
+        return redirect('utiliti/pengguna/senarai');
     }
 
     function tambah(){
@@ -194,5 +148,14 @@ class PenggunaController extends Controller
             return true;
         else
             return false;
+    }
+
+    function getPenggunaData(){
+        $user = DB::table('tbluser')
+                ->leftJoin('tblptj', 'tbluser.user_jkn','=', 'tblptj.ptj_id')
+                ->select('tbluser.*', 'tblptj.ptj_nama')
+                ->orderBy('tbluser.user_name')
+                ->paginate(20);
+        return $user;
     }
 }

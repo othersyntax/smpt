@@ -171,7 +171,9 @@
                                 <div class="form-group ">
                                     <label for="Modul" class="form-label">Modul</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="user_modul[]" value="1">
+                                        <input class="form-check-input" type="checkbox" name="user_modul[]" value="1"
+                                        
+                                        >
                                         <label for="Tanah" class="form-check-label">Tanah</label>
                                     </div>
                                     <div class="form-check">

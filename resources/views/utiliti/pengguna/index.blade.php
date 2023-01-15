@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="col-sm-12"> 
                             <div class="text-right">  
-                                <button type="button" name="add" id="add" class="btn btn-primary">Tambah</button>  
+                                <a href="/utiliti/pengguna/tambah" class="btn btn-primary">Tambah</a>
                             </div>
                         </div>
                         <div class="col-sm-12 mt-2">
@@ -135,7 +135,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="user_name" class="form-label">No. Kad Pengenalan</label>                                    
-                                    {{ Form::text('user_nokp',null,['readonly', 'class'=>'form-control', 'id'=>'user_nokp']) }}
+                                    
                                 </div>                                                           
                             </div>                            
                             <div class="col-sm-8">

@@ -36,7 +36,9 @@ Route::prefix("/utiliti/mukim")->group(function(){
 Route::prefix("/utiliti/pengguna")->group(function(){
     Route::any('/senarai',[PenggunaController::class, 'index'])->name('pengguna-senarai')->middleware('isLoggedIn');
     Route::post('/simpan',[PenggunaController::class, 'simpan'])->name('pengguna-simpan')->middleware('isLoggedIn');
-    Route::post('/ubah',[PenggunaController::class, 'ubah'])->name('pengguna-ubah')->middleware('isLoggedIn');
+    Route::post('/modul',[PenggunaController::class, 'modul'])->name('pengguna-modul')->middleware('isLoggedIn');
+    Route::post('/getmodul',[PenggunaController::class, 'getmodul'])->middleware('isLoggedIn');
+    Route::get('/ubah/{user_id}',[PenggunaController::class, 'ubah'])->name('pengguna-ubah')->middleware('isLoggedIn');
     Route::get('/papar',[PenggunaController::class, 'papar'])->name('pengguna-papar')->middleware('isLoggedIn');
     Route::get('/tambah',[PenggunaController::class, 'tambah'])->name('pengguna-tambah')->middleware('isLoggedIn');
     Route::post('/katalaluan',[PenggunaController::class, 'setKatalaluan'])->name('pengguna-katalaluan')->middleware('isLoggedIn');

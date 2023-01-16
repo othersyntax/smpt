@@ -38,8 +38,8 @@
                                 src="{{ asset('/template/dist/img/itsmeareyulookingfor.png') }}"
                                 alt="User profile picture">
                         </div>
-                        <h3 class="profile-username text-center">Usup bin Keram</h3>
-                        <p class="text-muted text-center">Pentadbir Sistem</p>
+                        <h3 class="profile-username text-center">{{ strtoupper($user->user_name) }}</h3>
+                        <p class="text-muted text-center">{{ aliasPeranan($user->user_role) }}</p>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -56,23 +56,24 @@
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="active tab-pane" id="profil">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" id="insert_form" action="/utiliti/pengguna/simpan" method="post">
+                                    {!! Form::hidden('user_id', $user->user_name) !!}
                                     <div class="form-group row">
                                         <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                                         <div class="col-sm-9">
-                                            {{ Form::text('user_name',null,['class'=>'form-control', 'id'=>'user_name']) }}
+                                            {{ Form::text('user_name',$user->user_name,['class'=>'form-control', 'id'=>'user_name']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="nokp" class="col-sm-3 col-form-label">No Kad Pengenalan</label>
                                         <div class="col-sm-4">
-                                            {{ Form::text('user_nokp',null,['class'=>'form-control', 'id'=>'user_nokp']) }}
+                                            {{ Form::text('user_nokp',$user->user_nokp,['readonly', 'class'=>'form-control', 'id'=>'user_nokp']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="emel" class="col-sm-3 col-form-label">Emel</label>
                                         <div class="col-sm-9">
-                                            {{ Form::email('user_email', null, ['class'=>'form-control', 'id'=>'user_email']) }} 
+                                            {{ Form::email('user_email', $user->user_email, ['class'=>'form-control', 'id'=>'user_email']) }} 
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -90,13 +91,13 @@
                                     <div class="form-group row">
                                     <label for="ptj" class="col-sm-3 col-form-label">JKN / PTJ / PK</label>
                                         <div class="col-sm-9">
-                                            {{ Form::select('user_jkn', pusatTjwb(), null, ['class'=>'form-control', 'id'=>'user_jkn']) }}
+                                            {{ Form::select('user_jkn', pusatTjwb(), $user->user_jkn, ['class'=>'form-control', 'id'=>'user_jkn']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="hadcapaian" class="col-sm-3 col-form-label">Had Capaian</label>
                                         <div class="col-sm-9">
-                                        {{ Form::select('user_role', [''=>'--Sila pilih--','1'=>'[1] - Pentadbir','2'=>'[2] - Pegawai','3'=>'[3] - Kakitangan'], null, ['class'=>'form-control', 'id'=>'user_role']) }}
+                                        {{ Form::select('user_role', [''=>'--Sila pilih--','1'=>'[1] - Pentadbir','2'=>'[2] - Pegawai','3'=>'[3] - Kakitangan'], $user->user_role, ['class'=>'form-control', 'id'=>'user_role']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -110,16 +111,13 @@
 
                             <div class="tab-pane" id="modul">
                                 @php
-                                $modul = \Illuminate\Support\Facades\DB::select("SELECT
-                                            tbluser_module.user_module_id,
-                                            tbluser_module.um_user_id,
-                                            if(tbluser_module.um_status=1,'',
-                                            tbluser_module.um_modul_id,
-                                            tblmodule.mod_name
-                                            FROM
-                                            tbluser_module
-                                            LEFT JOIN tblmodule ON tbluser_module.um_modul_id = tblmodule.module_id");
+                                $modul =  \App\Models\UserModul::where('um_user_id', $user->user_id)->get();
                                 @endphp
+                                <div class="col-sm-12 mb-2"> 
+                                    <div class="text-right">  
+                                        <button type="button" id="{{ $user->user_id }}" class="btn btn-primary add_module">Tambah</button>  
+                                    </div>
+                                </div>
                                 <table class="table">                                    
                                     <thead>
                                     <tr>
@@ -130,39 +128,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Tanah</td>
-                                        <td>Aktif</td>
-                                        <td class="text-right py-0 align-middle">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Premis Demis</td>
-                                        <td>Aktif</td>
-                                        <td class="text-right py-0 align-middle">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Utiliti</td>
-                                        <td>Aktif</td>
-                                        <td class="text-right py-0 align-middle">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                        </div>
-                                        </td>
-                                    </tr>
+                                    @if ($modul->count() > 0)
+                                        @php $no = 1 @endphp
+                                        @foreach ($modul as $m)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ aliasModul($m->um_modul_id) }}</td>
+                                            <td>{{ statusAktif($m->um_status) }}</td>
+                                            <td class="text-right py-0 align-middle">
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="#" id="{{ $m->user_module_id }}" class="btn btn-primary edit_modul" title="Kemaskini"><i class="fas fa-edit"></i></a>
+                                                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                            </td>
+                                        </tr>                                            
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="4" class="text-center"><i>Tiada Rekod</td>
+                                        </tr>
+                                    @endif
                                     </tbody>
                                 </table>                                
                             </div>
@@ -178,6 +163,46 @@
     <!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
+<div class="modal fade" id="mod_add">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="insert_form2" class="form-horizontal" action="/utiliti/pengguna/modul" method="post">
+                @csrf
+                <input type="hidden" name="user_id" id="user_id" value="">
+                <input type="hidden" name="user_module_id" id="user_module_id" value="">
+                <div class="modal-header">
+                    <h4 class="modal-title">Maklumat Modul</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">                           
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label for="user_nokp" class="form-label">Modul</label>
+                                {{ Form::select('um_modul_id', [''=>'--Sila pilih--','1'=>'Tanah', '2'=>'Premis Demis', '3'=>'Utiliti'], null, ['class'=>'form-control', 'id'=>'um_modul_id']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group ">
+                                <label for="JKM" class="form-label">Status</label>
+                                {{ Form::select('um_status', ['1'=>'Aktif','2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'um_status']) }}
+                                                        
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success" id="insert">Simpan</button>
+                </div> 
+            </form>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
 @endsection
 @section('js')
     <script src="{{ asset('/template/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -185,104 +210,29 @@
 
     <script>
 
+    $(function() {
+
         $('#neg_kod_negeri').change(function() {
             let neg_kod_negeri = $(this).val();
             getDaerah(neg_kod_negeri, 'dae_kod_daerah','#list-daerah');
         });
 
-        //AJAX function. get list of daerah
-        function getDaerah(kod_negeri, inputname, list) {
-            let url = '/ajax/ajax-daerah?neg_kod_negeri=' + kod_negeri + '&inputname=' + inputname;
-            $.get(url, function(data) {
-                // bg event pd dropdwon yg baru
-                // alert(list);
-                $(list).html(data);
-                $('#dae_kod_daerah').change(function() {
-                    let dae_kod_daerah = $(this).val();
-                    let url1 = '/ajax/ajax-mukim?dae_kod_daerah=' + dae_kod_daerah + '&inputname=ban_kod_bandar';
-                    $.get(url1, function(data1) {
-                        $('#list-mukim').html(data1);
-                    });
-                });
-            });
-        }
+        //add module
+        $('.add_module').click(function(){  
+            let user_id = $(this).attr("id");
+            $('#user_id').val(user_id);
+            $('#mod_add').modal('show'); 
+        });
 
-
-        $('#insert_form').validate({
+        $('#insert_form2').validate({
             rules: {
-                tanah_desc: {
-                    required: true
-                },
-                tanah_no_lot: {
-                    required: true
-                },
-                tanah_jenis_hakmilik: {
-                    required: true
-                },
-                tanah_ptj_id: {
-                    required: true
-                },
-                tanah_pk_id: {
-                    required: true
-                },
-                neg_kod_negeri: {
-                    required: true
-                },
-                dae_kod_daerah: {
-                    required: true
-                },
-                ban_kod_bandar: {
-                    required: true
-                },
-                tanah_longitud: {
-                    required: true
-                },
-                tanah_latitud: {
-                    required: true
-                },
-                tanah_luas: {
-                    required: true
-                },
-                tanah_status_tanah: {
+                um_modul_id: {
                     required: true
                 }
             },
             messages: {
-                tanah_desc: {
-                    required: "Sila masukkan Keterangan Lot Tanah",
-                },
-                tanah_no_lot: {
-                    required: "Sila masukkan No Lot Tanah",
-                },
-                tanah_jenis_hakmilik: {
-                    required: "Sila pilih Jenis Hak Milik",
-                },
-                tanah_ptj_id: {
-                    required: "Sila pilih Pusat Tanggungjawab"
-                },
-                tanah_facilities: {
-                    required: "Sila pilih Ada Fasiliti?"
-                },
-                neg_kod_negeri: {
-                    required: "Sila pilih Negeri"
-                },
-                dae_kod_daerah: {
-                    required: "Sila pilih Daerah"
-                },
-                ban_kod_bandar: {
-                    required: "Sila pilih Mukim/Bandar"
-                },
-                tanah_longitud: {
-                    required: "Sila masukkan Longitud"
-                },
-                tanah_latitud: {
-                    required: "Sila masukkan Latitud"
-                },
-                tanah_luas: {
-                    required: "Sila masukkan Keluasan Tanah"
-                },
-                tanah_status_tanah: {
-                    required: "Sila masukkan Status Tanah"
+                um_modul_id: {
+                    required: "Sila Pilih Modul"
                 }
             },
             errorElement: 'span',
@@ -297,5 +247,30 @@
                 $(element).removeClass('is-invalid');
             }
         });
+
+        $('.edit_modul').click(function(){  
+            let user_module_id = $(this).attr("id");
+            // alert(user_module_id);
+            $.ajax({  
+                url:"/utiliti/pengguna/getmodul",  
+                method:"POST",  
+                data:{
+                    _token: "{{ csrf_token() }}",
+                    user_module_id:user_module_id
+                },  
+                dataType: "json",  
+                success:function(data){ 
+                    $('#user_module_id').val(data.user_module_id); 
+                    $('#user_id').val(data.um_user_id); 
+                    $('#um_modul_id').val(data.um_modul_id);  
+                    $('#um_status').val(data.um_status);
+                    $('#insert').html("Kemaskini");  
+                    $('#mod_add').modal('show');  
+                }  
+            });  
+        });
+    });
+         
+    
     </script>
 @endsection

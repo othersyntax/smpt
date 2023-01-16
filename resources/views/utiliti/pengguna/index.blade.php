@@ -36,7 +36,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Jenis Carian</label>
-                                            {{ Form::select('carian_type', ['PTJ'=>'JKN / PTJ / PK', 'NoKP'=>'No. Kad Pengenalan', 'Nama'=>'Nama' , 'Role'=>'Peranan'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
+                                            {{ Form::select('carian_type', ['Nama'=>'Nama' , 'NoKP'=>'No. Kad Pengenalan', 'PTJ'=>'JKN / PTJ / PK', 'Role'=>'Peranan'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
                                         </div>                                    
                                     </div>
                                     <div class="col-md-8">                                
@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="col-sm-12"> 
                             <div class="text-right">  
-                                <a href="/utiliti/pengguna/tambah" class="btn btn-primary">Tambah</a>
+                                <a href="utiliti/pengguna/tambah" class="btn btn-primary">Tambah</a>
                             </div>
                         </div>
                         <div class="col-sm-12 mt-2">
@@ -91,7 +91,7 @@
                                                     <td>{{ $usr->ptj_nama ? $usr->ptj_nama : 'Tiada Rekod' }}</td>
                                                     <td>{{ aliasPeranan($usr->user_role) }}</td>                               
                                                     <td class="text-center">
-                                                        <a href="#" id="{{ $usr->user_id }}" class="btn btn-xs btn-default edit_user" title="Kemaskini">
+                                                        <a href="/utiliti/pengguna/ubah/{{ $usr->user_id }}" class="btn btn-xs btn-default edit_user" title="Kemaskini">
                                                             <i class="text-purple fas fa-edit"></i>
                                                         </a>
                                                         <a href="#" id="{{ $usr->user_id }}" class="btn btn-xs btn-default set_pass" title="Padam">
@@ -248,113 +248,113 @@
             $('#add_user').modal('show');  
         });
 
-        $('.edit_user').click(function(){  
-            let user_id = $(this).attr("id");
-            $.ajax({  
-                url:"/utiliti/pengguna/ubah",  
-                method:"POST",  
-                data:{
-                    _token: "{{ csrf_token() }}",
-                    user_id:user_id
-                },  
-                dataType: "json",  
-                success:function(data){ 
-                    $('#user_id').val(data.user_id); 
-                    $('#user_nokp').val(data.user_nokp);  
-                    $('#user_name').val(data.user_name);
-                    $('#user_email').val(data.user_email);
-                    $('#user_role').val(data.user_role);
-                    $('#user_jkn').val(data.user_jkn);
-                    $('#user_modul').val(data.user_modul);
-                    $('#insert').html("Kemaskini");  
-                    $('#add_user').modal('show');  
-                }  
-            });  
-        });
+        // $('.edit_user').click(function(){  
+        //     let user_id = $(this).attr("id");
+        //     $.ajax({  
+        //         url:"/utiliti/pengguna/ubah",  
+        //         method:"POST",  
+        //         data:{
+        //             _token: "{{ csrf_token() }}",
+        //             user_id:user_id
+        //         },  
+        //         dataType: "json",  
+        //         success:function(data){ 
+        //             $('#user_id').val(data.user_id); 
+        //             $('#user_nokp').val(data.user_nokp);  
+        //             $('#user_name').val(data.user_name);
+        //             $('#user_email').val(data.user_email);
+        //             $('#user_role').val(data.user_role);
+        //             $('#user_jkn').val(data.user_jkn);
+        //             $('#user_modul').val(data.user_modul);
+        //             $('#insert').html("Kemaskini");  
+        //             $('#add_user').modal('show');  
+        //         }  
+        //     });  
+        // });
 
-        $.validator.setDefaults({
-            submitHandler: function () {
-                $.ajax({  
-                    url:"/utiliti/pengguna/simpan",  
-                    method:"POST",  
-                    data:$('#insert_form').serialize(),
-                    beforeSend:function(data){ 
-                        if(data.user_id==''){
-                            mesej = 'Rekod berjaya ditambah';
-                        }
-                        else{
-                            mesej = 'Rekod berjaya dikemaskini';
-                        } 
-                    },  
-                    success:function(data){
-                        $('#insert_form')[0].reset();  
-                        $('#add_user').modal('hide');  
-                        $('#mukim_table').html(data);
-                        toastr.success(mesej);
-                    } 
-                });    
-            }
-        });
+        // $.validator.setDefaults({
+        //     submitHandler: function () {
+        //         $.ajax({  
+        //             url:"/utiliti/pengguna/simpan",  
+        //             method:"POST",  
+        //             data:$('#insert_form').serialize(),
+        //             beforeSend:function(data){ 
+        //                 if(data.user_id==''){
+        //                     mesej = 'Rekod berjaya ditambah';
+        //                 }
+        //                 else{
+        //                     mesej = 'Rekod berjaya dikemaskini';
+        //                 } 
+        //             },  
+        //             success:function(data){
+        //                 $('#insert_form')[0].reset();  
+        //                 $('#add_user').modal('hide');  
+        //                 $('#mukim_table').html(data);
+        //                 toastr.success(mesej);
+        //             } 
+        //         });    
+        //     }
+        // });
 
-        $('#insert_form').validate({
-            rules: {
-                user_nokp: {
-                    required: true,
-                    minlength: 12,
-                    maxlength: 12
-                },
-                user_name: {
-                    required: true
-                },
-                user_email: {
-                    required: true,
-                    email: true
-                },
-                user_role: {
-                    required: true
-                },
-                user_jkn: {
-                    required: true
-                },
-                user_modul:{
-                    required: true
-                }
-            },
-            messages: {
-                user_nokp: {
-                    required: "Sila masukkan No. Kad Pengenalan",
-                    minlength: "Sila masukkan 12 digit No. Kad Pengenalan",
-                    maxlength: "Sila masukkan 12 digit No. Kad Pengenalan tanpa tanda -",
-                },
-                user_name: {
-                    required: "Sila masukkan e-mel"
-                },
-                user_email: {
-                    required: "Sila pilih Peranan",
-                    email: "Sila masukkan e-mel yang tepat"
-                },
-                user_role: {
-                    required: "Sila pilih Peranan"
-                },
-                user_jkn: {
-                    required: "Sila pilih JKN / Pusat Kos"
-                },
-                user_modul:{
-                    required: "Sila pilih sekurang-kuranganya 1 modul"
-                }
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
+        // $('#insert_form').validate({
+        //     rules: {
+        //         user_nokp: {
+        //             required: true,
+        //             minlength: 12,
+        //             maxlength: 12
+        //         },
+        //         user_name: {
+        //             required: true
+        //         },
+        //         user_email: {
+        //             required: true,
+        //             email: true
+        //         },
+        //         user_role: {
+        //             required: true
+        //         },
+        //         user_jkn: {
+        //             required: true
+        //         },
+        //         user_modul:{
+        //             required: true
+        //         }
+        //     },
+        //     messages: {
+        //         user_nokp: {
+        //             required: "Sila masukkan No. Kad Pengenalan",
+        //             minlength: "Sila masukkan 12 digit No. Kad Pengenalan",
+        //             maxlength: "Sila masukkan 12 digit No. Kad Pengenalan tanpa tanda -",
+        //         },
+        //         user_name: {
+        //             required: "Sila masukkan e-mel"
+        //         },
+        //         user_email: {
+        //             required: "Sila pilih Peranan",
+        //             email: "Sila masukkan e-mel yang tepat"
+        //         },
+        //         user_role: {
+        //             required: "Sila pilih Peranan"
+        //         },
+        //         user_jkn: {
+        //             required: "Sila pilih JKN / Pusat Kos"
+        //         },
+        //         user_modul:{
+        //             required: "Sila pilih sekurang-kuranganya 1 modul"
+        //         }
+        //     },
+        //     errorElement: 'span',
+        //     errorPlacement: function (error, element) {
+        //         error.addClass('invalid-feedback');
+        //         element.closest('.form-group').append(error);
+        //     },
+        //     highlight: function (element, errorClass, validClass) {
+        //         $(element).addClass('is-invalid');
+        //     },
+        //     unhighlight: function (element, errorClass, validClass) {
+        //         $(element).removeClass('is-invalid');
+        //     }
+        // });
 
         function getDaerah(neg_kod_negeri, inputname, list) {
             let url = '/ajax/ajax-daerah?neg_kod_negeri=' + neg_kod_negeri + '&inputname=' + inputname;
@@ -366,6 +366,13 @@
 
     // SET KATALALUAN
     $('.set_pass').click(function(){  
+        let user_id = $(this).attr("id");
+        $('#setpass_form')[0].reset();    
+        $('#user_id_setpass').val(user_id);
+        $('#set_password').modal('show');  
+    });
+
+    $('.tambah_modul').click(function(){  
         let user_id = $(this).attr("id");
         $('#setpass_form')[0].reset();    
         $('#user_id_setpass').val(user_id);

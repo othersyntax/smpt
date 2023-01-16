@@ -45,7 +45,7 @@
       <div class="col-md-9">                
         <div class="card card-purple card-outline">               
           <div class="card-body">
-            <form class="form-horizontal" action="/utiliti/pengguna/simpan" method="post">
+            <form id="insert_form" class="form-horizontal" action="/utiliti/pengguna/simpan" method="post">
               @csrf
               <div class="form-group row">
                   <label for="nama" class="col-sm-3 col-form-label">Nama</label>

@@ -120,17 +120,39 @@ class PenggunaController extends Controller
         return redirect('utiliti/pengguna/senarai');
     }
 
+    function modul(Request $req){
+        $user_module_id = $req->user_module_id;
+        if(empty($user_module_id)){
+            $um = new UserModul();
+            $um->um_created_by = session('loginID');
+            $um->um_updated_by = session('loginID');
+        }
+        else{
+            $um = UserModul::find($user_module_id);
+            $um->um_updated_by = session('loginID');
+        }
+        $um->um_user_id = $req->user_id;
+        $um->um_modul_id = $req->um_modul_id;
+        $um->um_status = $req->um_status;
+    
+        $simpan = $um->save();
+    
+        return redirect('utiliti/pengguna/ubah/'.$req->user_id);
+    }
+
     function tambah(){
         return view('utiliti/pengguna.tambah');
     }
 
+    function getmodul(Request $req){
+        $moduldata = UserModul::find($req->user_module_id);
+        echo json_encode($moduldata);
+    }
+
     function ubah(Request $req){
         $user = Pengguna::find($req->user_id);
-        // $user = DB::table('tbluser')
-        //                 ->leftJoin('tbluser_module', 'tbluser.user_id','=', 'tbluser_module.um_user_id')
-        //                 ->select('tbluser.*', 'tbluser_module.um_modul_id')                        
-        //                 ->where('tbluser.user_id',$req->user_id)
-        echo json_encode($user);
+        $data['user'] = $user;
+        return view('utiliti/pengguna.ubah', $data);
     }
 
     function papar(Request $req){

@@ -64,6 +64,15 @@ function aliasPeranan($kod){
         return 'Kakitangan';
 }
 
+function aliasModul($kod){
+    if($kod==1)
+        return 'Tanah';
+    else if($kod==2)
+        return 'Premis';
+    else
+        return 'Utiliti';
+}
+
 function statusAktif($kod){
     if($kod==1)
         return 'Aktif';

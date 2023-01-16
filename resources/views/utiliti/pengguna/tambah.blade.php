@@ -141,85 +141,37 @@
 
         $('#insert_form').validate({
             rules: {
-                tanah_desc: {
+                user_name: {
                     required: true
                 },
-                tanah_no_lot: {
+                user_email: {
                     required: true
                 },
-                tanah_jenis_hakmilik: {
+                user_jkn: {
                     required: true
                 },
-                tanah_ptj_id: {
-                    required: true
-                },
-                tanah_pk_id: {
-                    required: true
-                },
-                neg_kod_negeri: {
-                    required: true
-                },
-                dae_kod_daerah: {
-                    required: true
-                },
-                ban_kod_bandar: {
-                    required: true
-                },
-                tanah_longitud: {
-                    required: true
-                },
-                tanah_latitud: {
-                    required: true
-                },
-                tanah_luas: {
-                    required: true
-                },
-                tanah_status_tanah: {
+                user_role: {
                     required: true
                 }
             },
             messages: {
-                tanah_desc: {
-                    required: "Sila masukkan Keterangan Lot Tanah",
+                user_name: {
+                    required: "Sila masukkan Nama",
                 },
-                tanah_no_lot: {
-                    required: "Sila masukkan No Lot Tanah",
+                user_email: {
+                    required: "Sila masukkan Emel",
                 },
-                tanah_jenis_hakmilik: {
-                    required: "Sila pilih Jenis Hak Milik",
+                user_jkn: {
+                    required: "Sila pilih JKN/PTJ/PK",
                 },
-                tanah_ptj_id: {
-                    required: "Sila pilih Pusat Tanggungjawab"
-                },
-                tanah_facilities: {
-                    required: "Sila pilih Ada Fasiliti?"
-                },
-                neg_kod_negeri: {
-                    required: "Sila pilih Negeri"
-                },
-                dae_kod_daerah: {
-                    required: "Sila pilih Daerah"
-                },
-                ban_kod_bandar: {
-                    required: "Sila pilih Mukim/Bandar"
-                },
-                tanah_longitud: {
-                    required: "Sila masukkan Longitud"
-                },
-                tanah_latitud: {
-                    required: "Sila masukkan Latitud"
-                },
-                tanah_luas: {
-                    required: "Sila masukkan Keluasan Tanah"
-                },
-                tanah_status_tanah: {
-                    required: "Sila masukkan Status Tanah"
+                user_role: {
+                    required: "Sila pilih Peranan"
                 }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
                 error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
+                element.closest('.err-msg').append(error);
             },
             highlight: function (element, errorClass, validClass) {
                 $(element).addClass('is-invalid');

@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="col-sm-12"> 
                             <div class="text-right">  
-                                <a href="utiliti/pengguna/tambah" class="btn btn-primary">Tambah</a>
+                                <a href="/utiliti/pengguna/tambah" class="btn btn-primary">Tambah</a>
                             </div>
                         </div>
                         <div class="col-sm-12 mt-2">

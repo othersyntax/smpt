@@ -57,46 +57,47 @@
                         <div class="tab-content">
                             <div class="active tab-pane" id="profil">
                                 <form class="form-horizontal" id="insert_form" action="/utiliti/pengguna/simpan" method="post">
-                                    {!! Form::hidden('user_id', $user->user_name) !!}
+                                    @csrf
+                                    {!! Form::hidden('user_id', $user->user_id) !!}
                                     <div class="form-group row">
                                         <label for="nama" class="col-sm-3 col-form-label">Nama</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-9 err-msg">
                                             {{ Form::text('user_name',$user->user_name,['class'=>'form-control', 'id'=>'user_name']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="nokp" class="col-sm-3 col-form-label">No Kad Pengenalan</label>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4 err-msg">
                                             {{ Form::text('user_nokp',$user->user_nokp,['readonly', 'class'=>'form-control', 'id'=>'user_nokp']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="emel" class="col-sm-3 col-form-label">Emel</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-9 err-msg">
                                             {{ Form::email('user_email', $user->user_email, ['class'=>'form-control', 'id'=>'user_email']) }} 
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="nokp" class="col-sm-3 col-form-label">Katalaluan</label>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4 err-msg">
                                             {{ Form::password('user_pass1', ['class'=>'form-control', 'id'=>'user_pass1']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="nokp" class="col-sm-3 col-form-label">Sah Katalaluan</label>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4 err-msg">
                                             {{ Form::password('user_pass2', ['class'=>'form-control', 'id'=>'user_pass2']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                     <label for="ptj" class="col-sm-3 col-form-label">JKN / PTJ / PK</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-9 err-msg">
                                             {{ Form::select('user_jkn', pusatTjwb(), $user->user_jkn, ['class'=>'form-control', 'id'=>'user_jkn']) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="hadcapaian" class="col-sm-3 col-form-label">Had Capaian</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-9 err-msg">
                                         {{ Form::select('user_role', [''=>'--Sila pilih--','1'=>'[1] - Pentadbir','2'=>'[2] - Pegawai','3'=>'[3] - Kakitangan'], $user->user_role, ['class'=>'form-control', 'id'=>'user_role']) }}
                                         </div>
                                     </div>
@@ -268,6 +269,48 @@
                     $('#mod_add').modal('show');  
                 }  
             });  
+        });
+
+        $('#insert_form').validate({
+            rules: {
+                user_name: {
+                    required: true
+                },
+                user_email: {
+                    required: true
+                },
+                user_jkn: {
+                    required: true
+                },
+                user_role: {
+                    required: true
+                }
+            },
+            messages: {
+                user_name: {
+                    required: "Sila masukkan Nama",
+                },
+                user_email: {
+                    required: "Sila masukkan Emel",
+                },
+                user_jkn: {
+                    required: "Sila pilih JKN/PTJ/PK",
+                },
+                user_role: {
+                    required: "Sila pilih Peranan"
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.err-msg').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
         });
     });
          

@@ -71,12 +71,11 @@ class PenggunaController extends Controller
         return view('utiliti/pengguna.index', $data);
     }
 
-    function simpan(Request $req){        
-
+    function simpan(Request $req){
+        $user_id = $req->user_id;  
         if(empty($user_id)){
             $user = new Pengguna();
             $user->user_pswd = Hash::make($user->user_nokp);
-            $user_id = $req->user_id;
             $user->user_name = $req->user_name;
             $user->user_nokp = $req->user_nokp;
             $user->user_email = $req->user_email;
@@ -107,6 +106,9 @@ class PenggunaController extends Controller
         else{
             $user = Pengguna::find($user_id);
             $user_id = $req->user_id;
+            if(empty($req->user_pass1)){
+                $user->user_pswd = Hash::make($user->user_pass1);                
+            }
             $user->user_name = $req->user_name;
             $user->user_nokp = $req->user_nokp;
             $user->user_email = $req->user_email;

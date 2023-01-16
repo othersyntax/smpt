@@ -82,7 +82,7 @@ class LoginController extends Controller
     public function logout() {
       if(Session::has('loginID')){
         Session::pull('loginID');
-        return redirect('/auth/login');
+        return redirect('/');
       }      
     }
 

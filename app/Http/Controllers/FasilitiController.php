@@ -81,7 +81,7 @@ class FasilitiController extends Controller
     }
 
     function delete(Request $req){
-        $fasiliti_id = $req->fasiliti_id;
+        $fasiliti_id = $req->delid;
         $fas = Fasiliti::find($fasiliti_id)->delete();
         if($fas)
             echo 'Rekod berjaya dipadam';

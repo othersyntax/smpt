@@ -92,11 +92,11 @@
                 <dt class="col-sm-4">Status</dt>
                 <dd class="col-sm-8">{{ statusAktif($tanah->tanah_status) }}</dd>
                 <dt class="col-sm-4">Cipta Oleh</dt>
-                <dd class="col-sm-8">{{ aliasPengguna($tanah->tanah_crtby) }}</dd>
+                <dd class="col-sm-8">{{ $tanah->tanah_crtby ? aliasPengguna($tanah->tanah_crtby) : 'Tiada Rekod' }}</dd>
                 <dt class="col-sm-4">Cipta Pada</dt>
                 <dd class="col-sm-8">{{ date('d-m-Y H:i', strtotime($tanah->tanah_created)) }}</dd>
                 <dt class="col-sm-4">Ubah Oleh</dt>
-                <dd class="col-sm-8">{{ aliasPengguna($tanah->tanah_updby) }}</dd>
+                <dd class="col-sm-8">{{ $tanah->tanah_updby ? aliasPengguna($tanah->tanah_updby) : 'Tiada Rekod' }}</dd>
                 <dt class="col-sm-4">Ubah Pada</dt>
                 <dd class="col-sm-8">{{ date('d-m-Y H:i', strtotime($tanah->tanah_upddate)) }}</dd>
             </dl>
@@ -205,6 +205,7 @@
                                             <th>Jenis</th>
                                             <th>Tahun</th>
                                             <th class="text-right">Nilai (RM)</th>
+                                            <th>#</th>
                                         </tr>
                                         </thead>
                                         <tbody>    
@@ -218,6 +219,14 @@
                                                     <td>{{ $nil->pen_jenis }}</td>
                                                     <td>{{ $nil->pen_tahun }}</td>
                                                     <td class="text-right">@convert( $nil->pen_nilai )</td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="my-edit-pen" val="{{ $nil->penilaian_id }}" data-toggle="modal" data-target="#modal-pen">
+                                                            <i class="far fa-edit"></i>
+                                                        </a>
+                                                        <a href="#" class="my-del-pen" val="{{ $nil->penilaian_id }}">
+                                                            <i class="fas fa-trash text-danger"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @else
@@ -412,7 +421,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    {{-- <div class="modal fade" id="modal-pen">
+    <div class="modal fade" id="modal-pen">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -477,7 +486,7 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div> --}}
+    </div>
 @endsection
 @section('js')
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4lz4VTknTzKB3PCAhYnV3a1F6vJYDYt0&callback=initMap&v=weekly"
@@ -531,7 +540,7 @@
             else{
                 $('#form-title').html('Tambah Maklumat Bayaran');                    
             }
-            $('#my-form').load(modul+'/myFormAdd/'+tanah_id);
+            $('#my-form').load('/'+modul+'/myFormAdd/'+tanah_id);
         }
 
         // EDIT
@@ -573,21 +582,31 @@
             else{
                 $('#form-title').html('Kemaskini Maklumat Bayaran');
             } 
-            $('#my-form').load(modul+'/myFormEdit/'+tanah_id+'/'+id);               
+            $('#my-form').load('/'+modul+'/myFormEdit/'+tanah_id+'/'+id);               
         }
 
         //DELETE           
-        $('.my-del').click(myDelete);
+        $('.my-del').click(function(){
+            let modul = 'fasiliti';
+            let id = $(this).attr('val');
+            myDelete(id, modul);
+            // alert(fasiliti_id);
+        });
+
+        $('.my-del-pen').click(function(){
+            let modul = 'penilaian';
+            let id = $(this).attr('val');
+            myDelete(id, modul);
+            // alert(fasiliti_id);
+        });
 
         // Ubah balik coding delete
-        function myDelete() {
-            let fasiliti_id = $(this).attr('val');
+        function myDelete(delid, modul) {            
             $.ajax({
-                url: "/fasiliti/delete",
-                
+                url: "/"+modul+"/delete",                
                 data: {
                     "_token": $('#csrf-token')[0].content,
-                    "fasiliti_id":fasiliti_id
+                    "delid":delid
                 },
                 type: 'post',
                 success: function(result){

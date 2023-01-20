@@ -25,6 +25,8 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     @include('layout.topmenu')
+
+    @include('layout.top-right-menu')
   </nav>
   <!-- /.navbar -->
 
@@ -44,7 +46,7 @@
           <img src="{{ asset('storage/profile/'.session('loginImage')) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ session('loginName') }}</a>
+          <a href="/profile/papar" class="d-block">{{ session('loginName') }}</a>
         </div>
       </div>
       <!-- Sidebar Menu -->

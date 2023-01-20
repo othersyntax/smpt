@@ -284,20 +284,34 @@
                 },
                 user_role: {
                     required: true
+                },
+                user_pass1: {
+                    minlength: 6
+                },
+                user_pass2: {
+                    minlength: 6,
+                    equalTo: "#user_pass1"
                 }
             },
             messages: {
                 user_name: {
-                    required: "Sila masukkan Nama",
+                    required: "Sila masukkan Nama"
                 },
                 user_email: {
-                    required: "Sila masukkan Emel",
+                    required: "Sila masukkan Emel"
                 },
                 user_jkn: {
-                    required: "Sila pilih JKN/PTJ/PK",
+                    required: "Sila pilih JKN/PTJ/PK"
                 },
                 user_role: {
                     required: "Sila pilih Peranan"
+                },
+                user_pass1: {
+                    minlength: "Katalaluan sekurang-kurangnya 6 aksara"
+                },
+                user_pass2: {
+                    minlength: "Katalaluan sekurang-kurangnya 6 aksara",
+                    equalTo: "Katalaluan tidak sama"
                 }
             },
             errorElement: 'span',

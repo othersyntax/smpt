@@ -11,6 +11,7 @@ use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\IsuController;
 use App\Http\Controllers\BayaranController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,12 @@ use App\Http\Controllers\AjaxController;
 //     return view('auth.login');
 // });
 Route::get('/',[LoginController::class, 'login'])->middleware('hasLoggedIn');
+
+Route::get('/profile/papar',[ProfilController::class, 'papar'])->middleware('hasLoggedIn');
+Route::prefix("/profile")->group(function(){
+    Route::get('/papar',[ProfilController::class, 'papar'])->middleware('hasLoggedIn');
+    Route::post('/ubah',[ProfilController::class, 'simpan'])->middleware('hasLoggedIn');
+});
 
 Route::get('/map', function () {
     return view('map.index');

@@ -106,7 +106,7 @@ class PenggunaController extends Controller
         else{
             $user = Pengguna::find($user_id);
             $user_id = $req->user_id;
-            if(empty($req->user_pass1)){
+            if(!empty($req->user_pass1)){
                 $user->user_pswd = Hash::make($user->user_pass1);                
             }
             $user->user_name = $req->user_name;

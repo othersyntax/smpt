@@ -39,8 +39,10 @@
                                 alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">{{ strtoupper($user->user_name) }}</h3>
-                        <p class="text-muted text-center">{{ aliasPeranan($user->user_role) }}</p>
-                        <p class="text-muted text-center">{{ $user->user_jkn }}</p>
+                        <p class="text-center">
+                            <br>{{ aliasPeranan($user->user_role) }}
+                            <br><b>{{ $user->namaPTJ->ptj_nama }}</b>
+                        </p>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -129,7 +131,7 @@
                 },
                 user_email: {
                     required: true
-                }
+                },
                 user_pass1: {
                     minlength: 6
                 },
@@ -144,7 +146,7 @@
                 },
                 user_email: {
                     required: "Sila masukkan Emel"
-                }
+                },
                 user_pass1: {
                     minlength: "Katalaluan sekurang-kurangnya 6 aksara"
                 },

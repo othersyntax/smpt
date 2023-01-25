@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pengguna;
+use Illuminate\Support\Facades\Hash;
 
 class ProfilController extends Controller
 {
@@ -21,6 +22,7 @@ class ProfilController extends Controller
             $user->user_name = $req->user_name;
             $user->user_nokp = $req->user_nokp;
             $user->user_email = $req->user_email;
+
             $user->user_updby = session('loginID');
             $simpan = $user->save();
 

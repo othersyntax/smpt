@@ -29,7 +29,6 @@ use App\Http\Controllers\ProfilController;
 // });
 Route::get('/',[LoginController::class, 'login'])->middleware('hasLoggedIn');
 
-Route::get('/profile/papar',[ProfilController::class, 'papar'])->middleware('hasLoggedIn');
 Route::prefix("/profile")->group(function(){
     Route::get('/papar',[ProfilController::class, 'papar'])->middleware('hasLoggedIn');
     Route::post('/ubah',[ProfilController::class, 'simpan'])->middleware('hasLoggedIn');

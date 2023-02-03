@@ -23,7 +23,7 @@ class ProfilController extends Controller
             $user->user_nokp = $req->user_nokp;
             $user->user_email = $req->user_email;
 
-            if($req->file('user_image')->isValid()){
+            if($req->hasFile('user_image')){
                 $file = $req->file('user_image');
                 $ext = $file->getClientOriginalExtension();
                 $img_name = $req->user_nokp.'-profile.'.$ext;

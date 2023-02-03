@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="active tab-pane" id="profil">
-                                <form class="form-horizontal" id="insert_form" action="/profile/ubah" method="post">
+                                <form class="form-horizontal" id="insert_form" action="/profile/ubah" method="post" enctype="multipart/form-data">
                                     @csrf
                                     {!! Form::hidden('user_id', $user->user_id) !!}
                                     <div class="form-group row">
@@ -90,6 +90,15 @@
                                         <div class="col-sm-4 err-msg">
                                             {{ Form::password('user_pass2', ['class'=>'form-control', 'id'=>'user_pass2']) }}
                                         </div>
+                                    </div>                                    
+                                    <div class="form-group row">
+                                        <label for="gambar" class="col-sm-3 col-form-label">Gambar Profil</label>
+                                        <div class="col-sm-4 err-msg">
+                                            <div class="custom-file">
+                                                <input type="file" name="user_image" class="custom-file-input" id="user_image">
+                                                <label class="custom-file-label" for="customFile">Pilih Gambar</label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-sm-3 col-sm-9">
@@ -115,10 +124,13 @@
 @section('js')
     <script src="{{ asset('/template/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('/template/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+    <script src="{{ asset('/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
     <script>
 
     $(function() {
+        bsCustomFileInput.init();
+
         $('#neg_kod_negeri').change(function() {
             let neg_kod_negeri = $(this).val();
             getDaerah(neg_kod_negeri, 'dae_kod_daerah','#list-daerah');

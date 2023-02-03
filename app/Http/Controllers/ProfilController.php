@@ -23,6 +23,17 @@ class ProfilController extends Controller
             $user->user_nokp = $req->user_nokp;
             $user->user_email = $req->user_email;
 
+            if($req->file('user_image')->isValid()){
+                $file = $req->file('user_image');
+                $ext = $file->getClientOriginalExtension();
+                $img_name = $req->user_nokp.'-profile.'.$ext;
+                $path = $req->file('user_image')->storeAs('public/profile/', $img_name);              
+                
+                $user->user_image = $img_name;
+
+            }
+
+
             $user->user_updby = session('loginID');
             $simpan = $user->save();
 
@@ -32,8 +43,6 @@ class ProfilController extends Controller
         }
         else{
             return redirect('auth/logout');
-        }
-
-        
+        }        
     }
 }

@@ -32,8 +32,6 @@ class ProfilController extends Controller
                 $user->user_image = $img_name;
 
             }
-
-
             $user->user_updby = session('loginID');
             $simpan = $user->save();
 

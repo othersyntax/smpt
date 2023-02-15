@@ -87,16 +87,11 @@ Route::prefix("/bayaran")->group(function(){
     Route::post('/simpan', [BayaranController::class, 'simpan']);
 });
 
-Route::prefix('/premis')->group(function(){
-    Route::get('/senarai', [PremisController::class, 'senarai']);
-    Route::get('/view',[PremisController::class, 'papar']);
-    Route::get('/sewa',[PremisController::class, 'sewa']);
-});
-
 Route::prefix('/ajax')->group(function(){
     Route::get('/ajax-daerah', [AjaxController::class, 'ajaxDaerah'])->middleware('isLoggedIn');
     Route::get('/ajax-mukim',[AjaxController::class, 'ajaxMukim'])->middleware('isLoggedIn');
 });
 
 include 'utiliti.php';
+include 'premis.php';
 // include 'kkm-utiliti.php';

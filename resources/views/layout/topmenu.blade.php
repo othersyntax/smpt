@@ -8,4 +8,7 @@
     <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('tanah-senarai') }}" class="nav-link {{ (request()->segment(1) == 'tanah') ? 'active' : '' }}">Data Tanah</a>
     </li>
+    <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ route('premis-senarai') }}" class="nav-link {{ (request()->segment(1) == 'premis') ? 'active' : '' }}">Premis Demis</a>
+    </li>
 </ul>

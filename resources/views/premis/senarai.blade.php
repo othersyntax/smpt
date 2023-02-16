@@ -59,61 +59,42 @@
                             </div>
                         </div>
                     </form>
-                    <div class="row mt-2">
-                    <table class="table table-striped">
-                        <thead>
-                            <th class="text-center">Bil</th>
-                            <th>Negeri</th>
-                            <th>Mukim/Daerah</th>
-                            <th>Premis</th>                                
-                            <th class="text-center">Tindakan</th>
-                        </thead>
-                        <tbody>                                        
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>Selangor</td>
-                                <td>Sungai Buloh</td>
-                                <td>ILKKM Sungai Buloh</td>                                                                        
-                                <td class="text-center">
-                                    <a href="/premis/view/" title="Kemaskini tanah">
-                                        <i class="fas fa-search text-purple"></i>
-                                    </a>
-                                    <a href="/premis/ubah/" title="Kemaskini tanah">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">2</td>
-                                <td>Negeri Sembilan</td>
-                                <td>Seremban</td>
-                                <td>ILKKM Seremban</td>                                                                        
-                                <td class="text-center">
-                                    <a href="/premis/view/" title="Kemaskini tanah">
-                                        <i class="fas fa-search text-purple"></i>
-                                    </a>
-                                    <a href="/premis/ubah/" title="Kemaskini tanah">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">3</td>
-                                <td>Sabah</td>
-                                <td>Kota Kinabalu</td>
-                                <td>ILKKM Kota Kinabalu</td>                                                                        
-                                <td class="text-center">
-                                    <a href="/premis/view/" title="Kemaskini tanah">
-                                        <i class="fas fa-search text-purple"></i>
-                                    </a>
-                                    <a href="/premis/ubah/" title="Kemaskini tanah">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>                        
+                    <div class="col-sm-12 mt-2">
+                        <table class="table table-striped">
+                            <thead>
+                                <th class="text-center">Bil</th>
+                                <th>Negeri</th>
+                                <th>Mukim/Daerah</th>
+                                <th>Premis</th>                                
+                                <th class="text-center">Penyewaan</th>
+                            </thead>
+                            <tbody>
+                                @if ($sewa->count() > 0)
+                                    @php $no = $sewa->firstItem() @endphp
+                                    @foreach ($sewa as $s)                                                                  
+                                        <tr>
+                                            <td class="text-center">{{ $no++ }}</td>
+                                            <td>{{ $s->neg_nama_negeri }}</td>
+                                            <td>{{ $s->ban_nama_bandar }}</td>
+                                            <td>{{ $s->tanah_desc }}</td>                                                                        
+                                            <td class="text-center">
+                                                <a href="/premis/view/{{ $s->tanah_id }}" title="Papar Penyewaan">
+                                                    ({{ $s->bilangan }}) <i class="fas fa-search text-purple"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="5" class="text-center"><i>Tiada Rekod</i></td>
+                                    </tr>
+                                @endif                       
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-12 mt-1">
+                        {{ $sewa->links() }}
+                    </div>                      
                 </div>
             </div>
         </div>

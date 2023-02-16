@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-12">
                     <h4 class="text-primary">
-                        <i class="fas fa-globe"></i> ILKKM Sungai Buloh
+                        <i class="fas fa-globe"></i> {{ $tanah->tanah_desc }}
                         <small class="float-right">Tarikh : {{ date('d-m-Y') }}</small>
                     </h4>
                 </div>
@@ -77,7 +77,10 @@
                             <th class="text-right">Kadar (RM)</th>                               
                             <th class="text-center">Tindakan</th>
                         </thead>
-                        <tbody>                                        
+                        <tbody>
+                            @foreach ($collection as $item)
+                                
+                            @endforeach                                       
                             <tr>
                                 <td class="text-center">1</td>
                                 <td>BPL/ILKKMKK/S/10</td>

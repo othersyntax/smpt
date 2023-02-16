@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class PremisController extends Controller
 {
-    function senarai(){
-        return view('premis.senarai');
-    }
+    // function senarai(){
+    //     return view('premis.senarai');
+    // }
 
-    function papar(){
-        return view('premis.view');
-    }
+    // function papar(){
+    //     return view('premis.view');
+    // }
 
     function sewa(){
         return view('premis.sewa');

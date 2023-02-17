@@ -7,7 +7,7 @@ use App\Http\Controllers\PremisController;
 
 Route::prefix('/premis')->group(function(){
     Route::get('/senarai', [PenyewaanController::class, 'senarai'])->name('premis-senarai')->middleware('isLoggedIn');
-    Route::get('/view/{tanah}',[PenyewaanController::class, 'papar']);
-    Route::get('/sewa',[PremisController::class, 'sewa']);
+    Route::get('/view/{tanah}',[PenyewaanController::class, 'papar'])->middleware('isLoggedIn');;
+    Route::get('/sewa',[PremisController::class, 'sewa'])->middleware('isLoggedIn');;
 });
 

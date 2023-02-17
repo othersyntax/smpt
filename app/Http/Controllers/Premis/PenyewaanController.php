@@ -35,9 +35,13 @@ class PenyewaanController extends Controller
     function papar(Request $req){
         $tanah_id = $req->tanah;
         $tanah = Tanah::find( $tanah_id);
-        $sewaan = Penyewaan::where('peny_fasilti_id',$tanah_id);
+        $sewaan = DB::select('SELECT pre_tblsewa.*, pre_tblsyarikat.sya_desc, tblfasiliti.fas_desc  FROM pre_tblsewa
+        INNER JOIN tblfasiliti ON pre_tblsewa.peny_fasilti_id = tblfasiliti.fasiliti_id
+        INNER JOIN pre_tblsyarikat ON pre_tblsewa.peny_syarikat_id = pre_tblsyarikat.syarikat_id
+        WHERE tblfasiliti.fas_tanah_id='.$tanah_id);
         $data['sewaan']=$sewaan;
         $data['tanah']=$tanah;
+        // dd($sewaan);
         return view('premis.view', $data);
     }
 }

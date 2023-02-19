@@ -44,4 +44,11 @@ class PenyewaanController extends Controller
         // dd($sewaan);
         return view('premis.view', $data);
     }
+
+    function sewa(Request $req){
+        $penyewaan_id = $req->sewaan;
+        $sewaan = Penyewaan::find($penyewaan_id);
+        $data['sewaan'] =  $sewaan;
+        return view('premis.sewa', $data);
+    }
 }

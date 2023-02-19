@@ -107,7 +107,7 @@
                                 <td width="5%"class="text-center">
                                     <a href="/premis/sewa/{{ $sewa->penyewaan_id }}" title="Kemaskini tanah">
                                         <i class="fas fa-search text-purple"></i>
-                                    </a>
+                                    </a>                                 
                                     <a href="#" title="Kemaskini tanah">
                                         <i class="fas fa-edit"></i>
                                     </a>

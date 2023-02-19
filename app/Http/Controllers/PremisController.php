@@ -14,7 +14,7 @@ class PremisController extends Controller
     //     return view('premis.view');
     // }
 
-    function sewa(){
-        return view('premis.sewa');
-    }
+    // function sewa(){
+    //     return view('premis.sewa');
+    // }
 }

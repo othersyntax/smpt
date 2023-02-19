@@ -33,9 +33,9 @@
                                         <div class="col-sm-3 invoice-col">
                                             <p class="lead">PENYEWA</p>
                                             <address>
-                                                <strong>{{ Str::upper('ERA DYMAX ENTERPRISE') }}</strong><br>
+                                                <strong>{{ Str::upper($sewaan->syarikat->sya_desc) }}</strong><br>
                                                 <i>
-                                                No 3, Jalan Kasturi<br>
+                                                {{ $sewaan->sya_alamat ? $sewaan->sya_alamat : 'Tiada Rekod' }}<br>
                                                 Shah Alam, Selangor<br>
                                                 </i>
                                             </address>

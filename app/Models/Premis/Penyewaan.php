@@ -12,7 +12,11 @@ class Penyewaan extends Model
     public $primaryKey = 'penyewaan_id';
     public $timestamps = false;
 
-    function syarikat(){
+    function fasiliti(){
         return $this->belongsTo(\App\Models\Fasiliti::class, 'peny_fasilti_id', 'fasiliti_id');
+    }
+
+    function syarikat(){
+        return $this->belongsTo(\App\Models\Premis\Syarikat::class, 'peny_syarikat_id', 'syarikat_id');
     }
 }

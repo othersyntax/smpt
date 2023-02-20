@@ -100,7 +100,7 @@
                                         <td>{{ $tnh->tanah_no_lot ? $tnh->tanah_no_lot: 'Tiada Rekod' }}</i></td>
                                         <td>{{ $tnh->tanah_desc }}</td>
                                         <td>{{ $tnh->tanah_jenis_hakmilik ? $tnh->jenisHakMilik->jenishm_desc : '-'  }}</td>
-                                        <td>{{ $tnh->daerah->dae_nama_daerah }} / {{ $tnh->bandar->ban_nama_bandar }} </td>                                        
+                                        <td>{{ $tnh->negeri->daerah->dae_nama_daerah }} / {{ $tnh->negeri->daerah->bandar->ban_nama_bandar }} </td>                                        
                                         <td class="text-center">
                                             <a href="/tanah/view/{{ $tnh->tanah_id }}" class="btn btn-xs btn-default" title="Papar Maklumat Tanah">
                                                 <i class="text-purple fas fa-search"></i>

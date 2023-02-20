@@ -38,7 +38,7 @@
                 <address>
                     <strong>{{ Str::upper($tanah->tanah_desc) }}</strong><br>
                     <i>
-                    {{ $tanah->bandar->ban_nama_bandar }}<br>
+                    {{ $tanah->negeri->daerah->bandar->ban_nama_bandar }}<br>
                     {{ $tanah->negeri->neg_nama_negeri }}<br>
                     </i>
                 </address>

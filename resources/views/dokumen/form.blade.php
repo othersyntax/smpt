@@ -1,4 +1,4 @@
-<form action="/dokumen/simpan" method="POST">
+<form action="/dokumen/simpan" method="POST" enctype="multipart/form-data">
     <div class="modal-body">
         @csrf
         <input type="hidden" name="tanah_id" value="{{ $tanahID }}">
@@ -7,27 +7,23 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Keterangan</label>
-                    {{ Form::text('pen_tahun', $dokumen->doc_desc, ['class'=>'form-control', 'id'=>'pen_tahun']) }}
+                    {{ Form::text('doc_desc', $dokumen->doc_desc, ['class'=>'form-control', 'id'=>'doc_desc']) }}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Jenis</label>
-                    {{ Form::select('pen_jenis',[''=>'--Sila pilih--', 'Geran'=>'Geran', 'Gambar'=>'Gambar', 'Lain'=>'Lain-lain'], $dokumen->doc_type, ['class'=>'form-control', 'id'=>'pen_jenis']) }}
+                    {{ Form::select('doc_type',[''=>'--Sila pilih--', 'Geran'=>'Geran', 'Surat'=>'Surat', 'Gambar'=>'Gambar', 'Lain'=>'Lain-lain'], $dokumen->doc_type, ['class'=>'form-control', 'id'=>'doc_type']) }}
                 </div> 
             </div>            
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="exampleInputFile">Dokumen</label>
                     <div class="input-group">
-                      <div class="custom-file">
-                        {{-- {{ Form::file('pen_doc', $penilaian->pen_doc, ['class'=>'custom-file-input', 'id'=>'pen_doc']) }} --}}
-                        <input type="file" class="custom-file-input" name="doc_location" id="pen_doc" >
-                        <label class="custom-file-label" for="exampleInputFile">Pilih dokumen</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Muat naik</span>
-                      </div>
+                        <div class="custom-file">
+                            <input type="file" name="doc_location" class="custom-file-input" id="doc_location">
+                            <label class="custom-file-label" for="customFile">Pilih Dokumen</label>
+                        </div>
                     </div>
                   </div>
             </div>
@@ -37,3 +33,9 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
     </div>
 </form>
+<script src="{{ asset('/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script>
+    $(function () {
+      bsCustomFileInput.init();
+    });
+</script>

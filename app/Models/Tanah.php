@@ -20,21 +20,8 @@ class Tanah extends Model
         return $this->belongsTo(\App\Models\Negeri::class, 'tanah_kod_negeri', 'neg_kod_negeri');
     }
 
-    function daerah(){
-        return $this->belongsTo(\App\Models\Daerah::class, 'tanah_kod_daerah', 'dae_kod_daerah');
-    }
-
-    function bandar(){
-        return $this->belongsTo(\App\Models\Bandar::class, 'tanah_kod_bandar', 'ban_kod_bandar');
-    }
-
     function statusTanahDB(){
         return $this->belongsTo(\App\Models\StatusTanah::class, 'tanah_status_tanah', 'statustanah_id');
     }
 }
-
-// function pengguna(){
-//     return $this->belongsTo(\App\Models\Pengguna::class, 'tanah_jenis_hakmilik', 'jenishm_id');
-// }
-
 

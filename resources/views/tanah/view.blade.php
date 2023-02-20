@@ -62,8 +62,8 @@
             <address>
                 <strong>{{ Str::upper($tanah->tanah_desc) }}</strong><br>
                 <i>
-                {{ $tanah->bandar->ban_nama_bandar }}<br>
-                {{ $tanah->daerah->dae_nama_daerah }}<br>
+                {{ $tanah->negeri->daerah->bandar->ban_nama_bandar }}<br>
+                {{ $tanah->negeri->daerah->dae_nama_daerah }}<br>
                 {{ $tanah->negeri->neg_nama_negeri }}<br>
                 </i>
                 <b>Koordinat:</b> {{ $tanah->tanah_latitud }} , {{ $tanah->tanah_longitud }} 
@@ -497,127 +497,13 @@
     <!-- Toastr -->
     <script src="{{ asset('/template/plugins/toastr/toastr.min.js') }}"></script>
     <!-- date-range-picker -->
-    <script src="{{ asset('/template/plugins/daterangepicker/daterangepicker.js') }}"></script>  
+    <script src="{{ asset('/template/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+    <script src="{{ asset('/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <script>
-        //MODAL
-        // ADD
-        $('#add-new').click(function(){
-            let modul = 'fasiliti';
-            myForm(modul);
-        });
-        $('#add-new-pen').click(function(){
-            let modul = 'penilaian';
-            myForm(modul);
-        });
-        $('#add-new-doc').click(function(){
-            let modul = 'dokumen';
-            myForm(modul);
-        });
-        $('#add-new-isu').click(function(){
-            let modul = 'isu';
-            myForm(modul);
-        });
-        $('#add-new-bayar').click(function(){
-            let modul = 'bayaran';
-            myForm(modul);
-        });
-        
-        function myForm(modul){
-            let tanah_id = $('[name=hide_tanah_id').val();
-            // alert(modul);
-            if(modul=='fasiliti'){
-                $('#form-title').html('Tambah Maklumat Fasiliti');
-            }
-            else if(modul=='penilaian'){
-                $('#form-title').html('Tambah Maklumat Penilaian');
-            } 
-            else if(modul=='dokumen'){
-                $('#form-title').html('Tambah Maklumat Dokumen');
-            }
-            else if(modul=='isu'){
-                $('#form-title').html('Tambah Maklumat Perkara Berbangkit');
-            }
-            else{
-                $('#form-title').html('Tambah Maklumat Bayaran');                    
-            }
-            $('#my-form').load('/'+modul+'/myFormAdd/'+tanah_id);
-        }
 
-        // EDIT
-        $('.my-edit').click(function(){
-            let id = $(this).attr('val');
-            ubah(id, 'fasiliti');
-        });
-        $('.my-edit-pen').click(function(){
-            let id = $(this).attr('val');
-            ubah(id, 'penilaian');
-        });
-        $('.my-edit-doc').click(function(){
-            let id = $(this).attr('val');
-            ubah(id, 'dokumen');
-        });
-        $('.my-edit-isu').click(function(){
-            let id = $(this).attr('val');
-            ubah(id, 'isu');
-        });
-        $('.my-edit-bayar').click(function(){
-            let id = $(this).attr('val');
-            ubah(id, 'bayaran');
-        });
-
-        function ubah(id, modul) {
-            let tanah_id = $('[name=hide_tanah_id').val();
-            if(modul=='fasiliti'){                    
-                $('#form-title').html('Kemaskini Maklumat Fasiliti');                
-            }
-            else if(modul=='penilaian'){
-                $('#form-title').html('Kemaskini Maklumat Penilaian');
-            }
-            else if(modul=='dokumen'){
-                $('#form-title').html('Kemaskini Maklumat Dokumen');
-            }
-            else if(modul=='isu'){
-                $('#form-title').html('Kemaskini Maklumat Perkara Berbangkit');
-            }
-            else{
-                $('#form-title').html('Kemaskini Maklumat Bayaran');
-            } 
-            $('#my-form').load('/'+modul+'/myFormEdit/'+tanah_id+'/'+id);               
-        }
-
-        //DELETE           
-        $('.my-del').click(function(){
-            let modul = 'fasiliti';
-            let id = $(this).attr('val');
-            myDelete(id, modul);
-            // alert(fasiliti_id);
-        });
-
-        $('.my-del-pen').click(function(){
-            let modul = 'penilaian';
-            let id = $(this).attr('val');
-            myDelete(id, modul);
-            // alert(fasiliti_id);
-        });
-
-        // Ubah balik coding delete
-        function myDelete(delid, modul) {            
-            $.ajax({
-                url: "/"+modul+"/delete",                
-                data: {
-                    "_token": $('#csrf-token')[0].content,
-                    "delid":delid
-                },
-                type: 'post',
-                success: function(result){
-                    toastr.warning(result);
-                }
-            });
-            // alert(fasiliti_id);
-        }
-
-        //TOASTR
         $(function() {
+            //TOASTR
             var Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -625,11 +511,125 @@
                 timer: 3000
             });
 
-            // $('.toastrDefaultSuccess').click(function() {
-                // toastr.success('aa');
-            // });
+            //MODAL
+            // ADD
+            $('#add-new').click(function(){
+                let modul = 'fasiliti';
+                myForm(modul);
+            });
+            $('#add-new-pen').click(function(){
+                let modul = 'penilaian';
+                myForm(modul);
+            });
+            $('#add-new-doc').click(function(){
+                let modul = 'dokumen';
+                myForm(modul);
+            });
+            $('#add-new-isu').click(function(){
+                let modul = 'isu';
+                myForm(modul);
+            });
+            $('#add-new-bayar').click(function(){
+                let modul = 'bayaran';
+                myForm(modul);
+            });
+            
+            function myForm(modul){
+                let tanah_id = $('[name=hide_tanah_id').val();
+                // alert(modul);
+                if(modul=='fasiliti'){
+                    $('#form-title').html('Tambah Maklumat Fasiliti');
+                }
+                else if(modul=='penilaian'){
+                    $('#form-title').html('Tambah Maklumat Penilaian');
+                } 
+                else if(modul=='dokumen'){
+                    $('#form-title').html('Tambah Maklumat Dokumen');
+                }
+                else if(modul=='isu'){
+                    $('#form-title').html('Tambah Maklumat Perkara Berbangkit');
+                }
+                else{
+                    $('#form-title').html('Tambah Maklumat Bayaran');                    
+                }
+                $('#my-form').load('/'+modul+'/myFormAdd/'+tanah_id);
+            }
+
+            // EDIT
+            $('.my-edit').click(function(){
+                let id = $(this).attr('val');
+                ubah(id, 'fasiliti');
+            });
+            $('.my-edit-pen').click(function(){
+                let id = $(this).attr('val');
+                ubah(id, 'penilaian');
+            });
+            $('.my-edit-doc').click(function(){
+                let id = $(this).attr('val');
+                ubah(id, 'dokumen');
+            });
+            $('.my-edit-isu').click(function(){
+                let id = $(this).attr('val');
+                ubah(id, 'isu');
+            });
+            $('.my-edit-bayar').click(function(){
+                let id = $(this).attr('val');
+                ubah(id, 'bayaran');
+            });
+
+            function ubah(id, modul) {
+                let tanah_id = $('[name=hide_tanah_id').val();
+                if(modul=='fasiliti'){                    
+                    $('#form-title').html('Kemaskini Maklumat Fasiliti');                
+                }
+                else if(modul=='penilaian'){
+                    $('#form-title').html('Kemaskini Maklumat Penilaian');
+                }
+                else if(modul=='dokumen'){
+                    $('#form-title').html('Kemaskini Maklumat Dokumen');
+                }
+                else if(modul=='isu'){
+                    $('#form-title').html('Kemaskini Maklumat Perkara Berbangkit');
+                }
+                else{
+                    $('#form-title').html('Kemaskini Maklumat Bayaran');
+                } 
+                $('#my-form').load('/'+modul+'/myFormEdit/'+tanah_id+'/'+id);               
+            }
+
+            //DELETE           
+            $('.my-del').click(function(){
+                let modul = 'fasiliti';
+                let id = $(this).attr('val');
+                myDelete(id, modul);
+                // alert(fasiliti_id);
+            });
+
+            $('.my-del-pen').click(function(){
+                let modul = 'penilaian';
+                let id = $(this).attr('val');
+                myDelete(id, modul);
+                // alert(fasiliti_id);
+            });
+
+            // Ubah balik coding delete
+            function myDelete(delid, modul) {            
+                $.ajax({
+                    url: "/"+modul+"/delete",                
+                    data: {
+                        "_token": $('#csrf-token')[0].content,
+                        "delid":delid
+                    },
+                    type: 'post',
+                    success: function(result){
+                        toastr.warning(result);
+                    }
+                });
+                // alert(fasiliti_id);
+            }
+
+
         });
-        //EDN TOASTR
 
     </script>
     <script>

@@ -40,7 +40,9 @@ class DokumenController extends Controller
         $rules = [
             'doc_desc'      => 'required',
             'doc_type'      => 'required',
-            'doc_name' => 'required'
+            'doc_name' => 'required',
+            'doc_name' => 'required',
+
         ];
 
         $msg = [

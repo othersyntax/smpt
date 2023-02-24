@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label>Keterangan</label>
+                    <label>Nama Dokumen</label>
                     {{ Form::text('doc_desc', $dokumen->doc_desc, ['class'=>'form-control', 'id'=>'doc_desc']) }}
                 </div>
             </div>

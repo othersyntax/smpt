@@ -265,7 +265,7 @@
                                                     <td>{{ $doc->doc_desc }}</td>
                                                     <td>{{ $doc->doc_type }}</td>
                                                     <td>
-                                                        <a href="{{ URL:: asset('storage/files/'.$doc->doc_location)}}" title="Papar Dokumen" target="_blank">
+                                                        <a href="{{ asset('storage/files/'.$doc->doc_location) }}" title="Papar Dokumen" target="_blank">
                                                             <i class="fas fa-search text-purple"></i>
                                                         </a>
                                                     </td>

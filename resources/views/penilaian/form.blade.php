@@ -1,4 +1,4 @@
-<form action="/fasiliti/simpan" method="POST">
+<form action="/penilaian/simpan" method="POST" id="insert_form">
     <div class="modal-body">
         @csrf
         <input type="hidden" name="tanah_id" value="{{ $tanahID }}">
@@ -24,12 +24,12 @@
                     {{ Form::text('pen_nilai', $penilaian->pen_nilai, ['class'=>'form-control', 'id'=>'pen_nilai']) }}
                 </div>
             </div>
-            <div class="col-md-12">
+            {{-- <div class="col-md-12">
                 <div class="form-group">
                     <label for="exampleInputFile">Dokumen Sokongan</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        {{-- {{ Form::file('pen_doc', $penilaian->pen_doc, ['class'=>'custom-file-input', 'id'=>'pen_doc']) }} --}}
+                        {{ Form::file('pen_doc', $penilaian->pen_doc, ['class'=>'custom-file-input', 'id'=>'pen_doc']) }}
                         <input type="file" class="custom-file-input" name="pen_doc" id="pen_doc">
                         <label class="custom-file-label" for="exampleInputFile">Pilih dokumen</label>
                       </div>
@@ -38,7 +38,7 @@
                       </div>
                     </div>
                   </div>
-            </div>
+            </div> --}}
         </div>
         
     </div>
@@ -46,3 +46,43 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
     </div>
 </form>
+<script src="{{ asset('/template/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('/template/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+<script>
+    $('#insert_form').validate({
+            rules: {
+                pen_jenis: {
+                    required: true
+                },
+                pen_tahun: {
+                    required: true
+                },
+                pen_nilai: {
+                    required: true
+                }
+            },
+            messages: {
+                pen_jenis: {
+                    required: "Sila pilih Jenis Penilaian",
+                },
+                pen_tahun: {
+                    required: "Sila masukkan Tahun Penilaian",
+                },
+                pen_nilai: {
+                    required: "Sila masukkan nilai (RM)",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+</script>

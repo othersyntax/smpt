@@ -66,11 +66,11 @@
     <section class="content">
       @if (session()->has('msg'))
         <div class="row card">
-          <div class="col-md-12 card-body" id='msg' style="background-color: rgb(109, 236, 109);">
-            <div class="text-white">
-                {{ session('msg') }}
+            <div class="col-md-12 card-body" id='msg' style="background-color: rgb(131, 231, 131);">
+                <div class="text-white">
+                    {{ session('msg') }}
+                </div>
             </div>
-          </div>
         </div>
       @endif
       <div class="container-fluid">
@@ -115,5 +115,10 @@
 <script src="{{ asset('/template/dist/js/pages/dashboard.js') }}"></script>
 <!-- addon js -->
 @yield('js')
+<script>
+  setTimeout(() => {
+    $('#msg').hide('slow');
+  }, 3000);
+</script>
 </body>
 </html>

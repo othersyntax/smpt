@@ -41,7 +41,7 @@ class FasilitiController extends Controller
         $fas->fas_guna = $req->fas_guna;
         // dd($fas);
         if($req->fas_guna =='Keseluruhan'){
-            $sizedata = Tanah::find(2, ['tanah_luas', 'tanah_luas_unit']);
+            $sizedata = Tanah::find($req->tanah_id, ['tanah_luas', 'tanah_luas_unit']);
                 // ->pluck('tanah_luas', 'tanah_luas_unit');
             // dd($sizedata);
             $fas->fas_size = $sizedata->tanah_luas;
@@ -76,16 +76,39 @@ class FasilitiController extends Controller
         }
         else{
             $fas->save();
-            return redirect('/tanah/view/'.$req->tanah_id)->with('msg', 'Maklumat fasiliti berjaya di simpan');
+            return redirect('/tanah/view/'.encrypt($req->tanah_id))->with('msg', 'Maklumat fasiliti berjaya di simpan');
         }
     }
 
     function delete(Request $req){
         $fasiliti_id = $req->delid;
         $fas = Fasiliti::find($fasiliti_id)->delete();
-        if($fas)
-            echo 'Rekod berjaya dipadam';
-        else
+        if($fas){
+            $output='';
+            $fasliti = Fasiliti::where('fas_tanah_id',  $req->tanah_id)->get();
+            $no = 1;
+            $padammsj = 'Anda pasti untuk padam';
+            foreach($fasliti as $fas){
+                $output .= '                                                     
+                    <tr>
+                        <td class="text-center">'.$no++.'</td>
+                        <td>'.$fas->fas_desc.'</td>
+                        <td>'.$fas->fas_size.'</td>
+                        <td class="text-center">
+                            <a href="#" class="my-edit" val="'.$fas->fasiliti_id.'" data-toggle="modal" data-target="#modal-fas">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a href="#" onclick="return confirm('.$padammsj.')" class="my-del" val="'.$fas->fasiliti_id.'">
+                                <i class="fas fa-trash text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                ';  
+            }         
+            echo $output;
+        }
+        else{
             echo 'ERROR';
+        }            
     }       
 }

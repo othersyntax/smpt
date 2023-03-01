@@ -102,10 +102,10 @@
                                         <td>{{ $tnh->tanah_jenis_hakmilik ? $tnh->jenisHakMilik->jenishm_desc : '-'  }}</td>
                                         <td>{{ $tnh->negeri->daerah->dae_nama_daerah }} / {{ $tnh->negeri->daerah->bandar->ban_nama_bandar }} </td>                                        
                                         <td class="text-center">
-                                            <a href="/tanah/view/{{ $tnh->tanah_id }}" class="btn btn-xs btn-default" title="Papar Maklumat Tanah">
+                                            <a href="/tanah/view/{{ encrypt($tnh->tanah_id) }}" class="btn btn-xs btn-default" title="Papar Maklumat Tanah">
                                                 <i class="text-purple fas fa-search"></i>
                                             </a>
-                                            <a href="/tanah/ubah/{{ $tnh->tanah_id }}" class="btn btn-xs btn-default" title="Kemaskini tanah">
+                                            <a href="/tanah/ubah/{{ encrypt($tnh->tanah_id) }}" class="btn btn-xs btn-default" title="Kemaskini tanah">
                                                 <i class="text-info fas fa-edit"></i>
                                             </a>
                                         </td>

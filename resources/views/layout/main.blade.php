@@ -109,11 +109,6 @@
 <script src="{{ asset('/template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/template/dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="{{ asset('/template/dist/js/demo.js') }}"></script> --}}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('/template/dist/js/pages/dashboard.js') }}"></script>
-<!-- addon js -->
 @yield('js')
 <script>
   setTimeout(() => {

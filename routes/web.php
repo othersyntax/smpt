@@ -70,6 +70,7 @@ Route::prefix("/penilaian")->group(function(){
     Route::get('/myFormAdd/{tanah_id}', [PenilaianController::class, 'ajaxFormAdd']);
     Route::get('/myFormEdit/{tanah_id}/{penilaian_id}', [PenilaianController::class, 'ajaxFormEdit']);
     Route::post('/simpan', [PenilaianController::class, 'simpan']);
+    Route::post('/delete', [PenilaianController::class, 'delete']);
 });
 
 Route::prefix("/dokumen")->group(function(){
@@ -80,13 +81,16 @@ Route::prefix("/dokumen")->group(function(){
 
 Route::prefix("/isu")->group(function(){
     Route::get('/myFormAdd/{tanah_id}', [IsuController::class, 'ajaxFormAdd']);
-    Route::get('/myFormEdit/{tanah_id}/isu_id}', [PenilaianController::class, 'ajaxFormEdit']);
+    Route::get('/myFormEdit/{tanah_id}/{isu_id}', [IsuController::class, 'ajaxFormEdit']);
+    Route::post('/simpan', [IsuController::class, 'simpan']);
+    Route::post('/delete', [IsuController::class, 'delete']);
 });
 
 Route::prefix("/bayaran")->group(function(){
     Route::get('/myFormAdd/{tanah_id}', [BayaranController::class, 'ajaxFormAdd']);
     Route::get('/myFormEdit/{tanah_id}/{bayaran_id}', [BayaranController::class, 'ajaxFormEdit']);
     Route::post('/simpan', [BayaranController::class, 'simpan']);
+    Route::post('/delete', [BayaranController::class, 'delete']);
 });
 
 Route::prefix('/ajax')->group(function(){

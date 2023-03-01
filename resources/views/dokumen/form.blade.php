@@ -1,4 +1,4 @@
-<form action="/dokumen/simpan" method="POST" enctype="multipart/form-data">
+<form action="/dokumen/simpan" method="POST" enctype="multipart/form-data" id="insert_form">
     <div class="modal-body">
         @csrf
         <input type="hidden" name="tanah_id" value="{{ $tanahID }}">
@@ -34,8 +34,47 @@
     </div>
 </form>
 <script src="{{ asset('/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{ asset('/template/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('/template/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 <script>
     $(function () {
       bsCustomFileInput.init();
     });
+
+    $('#insert_form').validate({
+            rules: {
+                doc_desc: {
+                    required: true
+                },
+                doc_type: {
+                    required: true
+                },
+                doc_location: {
+                    required: true
+                }
+            },
+            messages: {
+                doc_desc: {
+                    required: "Sila masukkan nama Dokumen",
+                },
+                doc_type: {
+                    required: "Sila pilih Jenis Dokumen",
+                },
+                doc_location: {
+                    required: "Sila pilih dokumen",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
 </script>

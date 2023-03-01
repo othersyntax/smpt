@@ -1,4 +1,4 @@
-<form action="/fasiliti/simpan" method="POST">
+<form action="/fasiliti/simpan" method="POST" id="insert_form">
     <div class="modal-body">
         @csrf
         <input type="hidden" name="tanah_id" value="{{ $tanahID }}">
@@ -24,7 +24,7 @@
                     {{ Form::text('fas_size', $fasiliti->fas_size, ['class'=>'form-control', 'id'=>'fas_size']) }}
                 </div>
             </div>                          
-            <div class="col-md-6"  id="showUnit"> 
+            <div class="col-md-6" id="showUnit"> 
                 <div class="form-group">
                     <label>Unit Ukuran</label>
                     {{ Form::select('fas_size_unit',[''=>'--Sila pilih--', 'Kaki'=>'Kaki', 'Meter'=>'Meter', 'CM'=>'CM', 'Ekar'=>'Ekar'], $fasiliti->fas_size_unit, ['class'=>'form-control', 'id'=>'fas_size_unit']) }}
@@ -36,7 +36,45 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
     </div>
 </form>
+<script src="{{ asset('/template/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('/template/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 <script>
+    $('#insert_form').validate({
+        rules: {
+            fas_desc: {
+                required: true
+            },
+            fas_size: {
+                required: true
+            },
+            fas_size_unit: {
+                required: true
+            }
+        },
+        messages: {
+            fas_desc: {
+                required: "Sila masukkan nama Fasiliti",
+            },
+            fas_size: {
+                required: "Sila masukkan Saiz",
+            },
+            fas_size_unit: {
+                required: "Sila pilih Unit Ukuran",
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+
     $('[name=fas_guna]').change(showHideSize);
     showHideSize()
 

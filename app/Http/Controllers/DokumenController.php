@@ -56,7 +56,7 @@ class DokumenController extends Controller
             $doc->doc_location = $nama_doc;
             $doc->doc_create_by = session('loginID'); //Read from session
             $doc->save();
-            return redirect('/tanah/view/'.$req->tanah_id)->with('msg', 'Maklumat Dokumen berjaya di simpan');
+            return redirect('/tanah/view/'.encrypt($req->tanah_id))->with('msg', 'Maklumat Dokumen berjaya di simpan');
         }
     }
 }

@@ -134,16 +134,16 @@ class TanahController extends Controller
         
         $tanah->save();
 
-        return redirect('tanah/view/'.$tanah->tanah_id);
+        return redirect('tanah/view/'.encrypt($tanah->tanah_id));
     }
 
     function papar($tanah_id){
-        $tanah = Tanah::find($tanah_id);
-        $nilai = Penilaian::where('pen_tanah_id',$tanah_id)->get();
-        $dokumen = Dokumen::where('doc_tanah_id',$tanah_id)->get();
-        $fasiliti = Fasiliti::where('fas_tanah_id',$tanah_id)->get();
-        $isu = Isu::where('isue_tanah_id',$tanah_id)->get();
-        $bayaran = Bayaran::where('bayar_tanah_id', $tanah_id)->get();
+        $tanah = Tanah::find(decrypt($tanah_id));
+        $nilai = Penilaian::where('pen_tanah_id',decrypt($tanah_id))->get();
+        $dokumen = Dokumen::where('doc_tanah_id',decrypt($tanah_id))->get();
+        $fasiliti = Fasiliti::where('fas_tanah_id',decrypt($tanah_id))->get();
+        $isu = Isu::where('isue_tanah_id',decrypt($tanah_id))->get();
+        $bayaran = Bayaran::where('bayar_tanah_id', decrypt($tanah_id))->get();
         $data['tanah'] = $tanah;
         $data['nilai'] = $nilai;
         $data['dokumen'] = $dokumen;
@@ -154,7 +154,7 @@ class TanahController extends Controller
     }
 
     function ubah($tanah_id){
-        $tanah = Tanah::find($tanah_id);
+        $tanah = Tanah::find(decrypt($tanah_id));
         session([
             'neg_kod_negeri' => $tanah->tanah_kod_negeri,
             'dae_kod_daerah' => $tanah->tanah_kod_daerah,

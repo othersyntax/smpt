@@ -41,8 +41,6 @@
             <div id="map"></div>
             </div>
         </div>
-
-
         <!-- Main content -->
         <div class="invoice p-3 mb-3">
         <!-- title row -->
@@ -104,7 +102,6 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-
         <div class="row">
             <!-- accepted payments column -->
             <div class="col-4">
@@ -156,27 +153,27 @@
                                     <table class="table mt-3">
                                         <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th class="text-center">No.</th>
                                             <th>Fasiliti</th>
                                             <th>Keluasan</th>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                         </tr>
                                         </thead>
-                                        <tbody>    
+                                        <tbody id="fasiliti_table">    
                                         @php
                                             $bilfas=1;
                                         @endphp
                                         @if ($fasiliti->count() > 0)
                                             @foreach ($fasiliti as $fas)
                                                 <tr>
-                                                    <td>{{ $bilfas++ }}</td>
+                                                    <td class="text-center">{{ $bilfas++ }}</td>
                                                     <td>{{ $fas->fas_desc }}</td>
                                                     <td>{{ $fas->fas_size }} {{ $fas->fas_size_unit }}</td>
                                                     <td class="text-center">
                                                         <a href="#" class="my-edit" val="{{ $fas->fasiliti_id }}" data-toggle="modal" data-target="#modal-fas">
                                                             <i class="far fa-edit"></i>
                                                         </a>
-                                                        <a href="#" class="my-del" val="{{ $fas->fasiliti_id }}">
+                                                        <a href="#" onclick="return confirm('Anda pasti untuk padam')" class="my-del" val="{{ $fas->fasiliti_id }}">
                                                             <i class="fas fa-trash text-danger"></i>
                                                         </a>
                                                     </td>
@@ -201,29 +198,29 @@
                                     <table class="table  mt-3">
                                         <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th class="text-center">No.</th>
                                             <th>Jenis</th>
                                             <th>Tahun</th>
                                             <th class="text-right">Nilai (RM)</th>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                         </tr>
                                         </thead>
-                                        <tbody>    
+                                        <tbody id="penilaian_table">    
                                         @php
                                             $bilpen=1;
                                         @endphp
                                         @if ($nilai->count() > 0)
                                             @foreach ($nilai as $nil)
                                                 <tr>
-                                                    <td>{{$bilpen++}}</td>
+                                                    <td class="text-center">{{$bilpen++}}</td>
                                                     <td>{{ $nil->pen_jenis }}</td>
                                                     <td>{{ $nil->pen_tahun }}</td>
-                                                    <td class="text-right">@convert( $nil->pen_nilai )</td>
+                                                    <td class="text-right">@duit( $nil->pen_nilai )</td>
                                                     <td class="text-center">
-                                                        <a href="#" class="my-edit-pen" val="{{ $nil->penilaian_id }}" data-toggle="modal" data-target="#modal-pen">
+                                                        <a href="#" class="my-edit-pen" val="{{ $nil->penilaian_id }}" data-toggle="modal" data-target="#modal-fas">
                                                             <i class="far fa-edit"></i>
                                                         </a>
-                                                        <a href="#" class="my-del-pen" val="{{ $nil->penilaian_id }}">
+                                                        <a href="#" onclick="return confirm('Anda pasti untuk padam')" class="my-del-pen" val="{{ $nil->penilaian_id }}">
                                                             <i class="fas fa-trash text-danger"></i>
                                                         </a>
                                                     </td>
@@ -248,10 +245,10 @@
                                     <table class="table mt-3">
                                         <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th class="text-center">No.</th>
                                             <th>Keterangan</th>
                                             <th>Dokumen</th>
-                                            <th>Papar</th>
+                                            <th class="text-center">Papar</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -261,11 +258,11 @@
                                         @if ($dokumen->count() > 0)
                                             @foreach ($dokumen as $doc)
                                                 <tr>
-                                                    <td>{{ $bildoc++ }}</td>
+                                                    <td class="text-center">{{ $bildoc++ }}</td>
                                                     <td>{{ $doc->doc_desc }}</td>
                                                     <td>{{ $doc->doc_type }}</td>
-                                                    <td>
-                                                        <a href="{{ asset('storage/files/'.$doc->doc_location) }}" title="Papar Dokumen" target="_blank">
+                                                    <td class="text-center">
+                                                        <a href="{{ Storage::url('files/'.$doc->doc_location) }}" title="Papar Dokumen" target="_blank">
                                                             <i class="fas fa-search text-purple"></i>
                                                         </a>
                                                     </td>
@@ -290,29 +287,32 @@
                                     <table class="table mt-3">
                                         <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th class="text-center">No.</th>
                                             <th>Jenis</th>
                                             <th>Perkara</th>
                                             <th>Mula</th>
                                             <th>Tamat</th>
-                                            <th>#</th>
+                                            <th class="text-center">#</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="isu_table">
                                             @php
                                             $bilisu=1;
                                             @endphp
                                             @if ($isu->count() > 0)
                                                 @foreach ($isu as $i)
                                                     <tr>
-                                                        <td>{{ $bilisu++ }}</td>
-                                                        <td>{{ $i->isue_type_id ? $i->jenis->isuet_name : '-' }}</td>
-                                                        <td>{{ $i->isue_desc }}</td>
-                                                        <td>{{ date('d-m-Y', strtotime($i->isue_sdate)) }}</td>
-                                                        <td>{{ statusAktif($i->isue_status) }}</td>
-                                                        <td>
-                                                            <a href="">
-                                                                <i class="fas fa-edit text-purple"></i>
+                                                        <td class="text-center" width="5%">{{ $bilisu++ }}</td>
+                                                        <td width="15%">{{ $i->isue_type_id ? $i->jenis->isuet_name : '-' }}</td>
+                                                        <td width="50%">{{ $i->isue_desc }}</td>
+                                                        <td width="10%">{{ date('d/m/Y', strtotime($i->isue_sdate)) }}</td>
+                                                        <td width="10%">{{ statusAktif($i->isue_status) }}</td>
+                                                        <td width="10%" class="text-center">
+                                                            <a href="#" class="my-edit-isu" val="{{ $i->isue_id }}" data-toggle="modal" data-target="#modal-fas">
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            <a href="#" onclick="return confirm('Anda pasti untuk padam')" class="my-del-isu" val="{{ $i->isue_id }}">
+                                                                <i class="fas fa-trash text-danger"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -336,31 +336,31 @@
                                     <table class="table mt-3">
                                         <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th class="text-center">No.</th>
                                             <th>Tahun</th>
                                             <th>Keterangan</th>
                                             <th>Tarikh</th>
                                             <th class="text-right">Amaun (RM)</th>
-                                            <th>Papar</th>
+                                            <th class="text-center">Papar</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="bayar_table">
                                             @php
                                                 $bilbyr=1;
                                             @endphp
                                             @if ($bayaran->count()>0)
                                                 @foreach ($bayaran as $b)
                                                     <tr>
-                                                        <td>{{ $bilbyr++ }}</td>
+                                                        <td class="text-center">{{ $bilbyr++ }}</td>
                                                         <td>{{ $b->bayar_year }}</td>
                                                         <td>{{ $b->bayar_desc }}</td>
-                                                        <td>{{ date('d-m-Y', strtotime($b->bayar_date)) }}</td>
-                                                        <td class="text-right">@convert($b->bayar_amaun)</td>
-                                                        <td>
+                                                        <td>{{ date('d/m/Y', strtotime($b->bayar_date)) }}</td>
+                                                        <td class="text-right">@duit($b->bayar_amaun)</td>
+                                                        <td class="text-center">
                                                             <a href="#" class="my-edit-bayar" val="{{ $b->bayaran_id }}" data-toggle="modal" data-target="#modal-fas">
                                                                 <i class="far fa-edit"></i>
                                                             </a>
-                                                            <a href="#" class="my-del" val="{{ $b->bayaran_id }}">
+                                                            <a href="#" onclick="return confirm('Anda pasti untuk padam')" class="my-del-bayar" val="{{ $b->bayaran_id }}">
                                                                 <i class="fas fa-trash text-danger"></i>
                                                             </a>
                                                         </td>
@@ -387,7 +387,7 @@
             <div class="col-12">
             <a href="/tanah/senarai" rel="noopener" class="btn btn-danger"><i class="fas fa-chevron-left"></i> Kembali</a>
             <a href="#" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-            <a href="/tanah/ubah/{{ $tanah->tanah_id }}" class="btn btn-success float-right"><i class="fas fa-cog"></i> Kemakini
+            <a href="/tanah/ubah/{{ encrypt($tanah->tanah_id) }}" class="btn btn-success float-right"><i class="fas fa-cog"></i> Kemakini
             </a>
             <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                 <i class="fas fa-download"></i> Generate PDF
@@ -421,7 +421,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <div class="modal fade" id="modal-pen">
+    {{-- <div class="modal fade" id="modal-pen">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -432,7 +432,7 @@
                             @endforeach
                         </div>
                     @endif
-                    <h4 class="modal-title">Tambah Maklumat Penilaian</h4>
+                    <h4 class="modal-title"><p id="form-title-pen"></p></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -454,7 +454,7 @@
                             @endforeach
                         </div>
                     @endif
-                    <h4 class="modal-title">Tambah Maklumat Dokumen</h4>
+                    <h4 class="modal-title"><p id="form-title-doc"></p></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -476,7 +476,7 @@
                             @endforeach
                         </div>
                     @endif
-                    <h4 class="modal-title">Tambah Maklumat Perkara Berbangkit</h4>
+                    <h4 class="modal-title"><p id="form-title-isu"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -486,12 +486,10 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </div> --}}
 @endsection
 @section('js')
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4lz4VTknTzKB3PCAhYnV3a1F6vJYDYt0&callback=initMap&v=weekly"
-    defer
-    ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4lz4VTknTzKB3PCAhYnV3a1F6vJYDYt0"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('/template/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Toastr -->
@@ -510,7 +508,6 @@
                 showConfirmButton: false,
                 timer: 3000
             });
-
             //MODAL
             // ADD
             $('#add-new').click(function(){
@@ -563,6 +560,7 @@
             $('.my-edit-pen').click(function(){
                 let id = $(this).attr('val');
                 ubah(id, 'penilaian');
+                // alert("TEST");
             });
             $('.my-edit-doc').click(function(){
                 let id = $(this).attr('val');
@@ -584,12 +582,14 @@
                 }
                 else if(modul=='penilaian'){
                     $('#form-title').html('Kemaskini Maklumat Penilaian');
+                    // alert("TEST");
                 }
                 else if(modul=='dokumen'){
                     $('#form-title').html('Kemaskini Maklumat Dokumen');
                 }
                 else if(modul=='isu'){
                     $('#form-title').html('Kemaskini Maklumat Perkara Berbangkit');
+                    // alert(id);
                 }
                 else{
                     $('#form-title').html('Kemaskini Maklumat Bayaran');
@@ -601,31 +601,51 @@
             $('.my-del').click(function(){
                 let modul = 'fasiliti';
                 let id = $(this).attr('val');
-                myDelete(id, modul);
+                myDelete(id, modul, '#fasiliti_table');
                 // alert(fasiliti_id);
             });
 
             $('.my-del-pen').click(function(){
                 let modul = 'penilaian';
                 let id = $(this).attr('val');
-                myDelete(id, modul);
+                myDelete(id, modul, '#penilaian_table');
+                // alert(fasiliti_id);
+            });
+
+            $('.my-del-isu').click(function(){
+                let modul = 'isu';
+                let id = $(this).attr('val');
+                myDelete(id, modul, '#isu_table');
+                // alert(fasiliti_id);
+            });
+
+            $('.my-del-bayar').click(function(){
+                let modul = 'bayaran';
+                let id = $(this).attr('val');
+                myDelete(id, modul, '#bayar_table');
                 // alert(fasiliti_id);
             });
 
             // Ubah balik coding delete
-            function myDelete(delid, modul) {            
+            function myDelete(delid, modul, table) { 
+                let tanah_id = $('[name=hide_tanah_id]').val();          
                 $.ajax({
-                    url: "/"+modul+"/delete",                
+                    url: "/"+modul+"/delete",
+                    method:"POST",               
                     data: {
                         "_token": $('#csrf-token')[0].content,
-                        "delid":delid
+                        "delid":delid,
+                        "tanah_id":tanah_id
                     },
-                    type: 'post',
-                    success: function(result){
-                        toastr.warning(result);
-                    }
+                    success:function(result){
+                        $(table).html(result);
+                        if(result!="ERROR")
+                            toastr.warning('Rekod berjaya dipadam');
+                        else
+                            toastr.danger('Rekod GAGAL dipadam');
+                    }   
                 });
-                // alert(fasiliti_id);
+                // alert(tanah_id);
             }
 
 
@@ -636,22 +656,22 @@
         //Load Google Maps---START
         let map;
 
-        function initMap() {
-            
+        window.initMap = initMap();
+
+        function initMap() {            
             const myLatLng = { lat: parseFloat('{{ $tanah->tanah_latitud }}'), lng: parseFloat('{{ $tanah->tanah_longitud }}') };
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 16,
-                center: myLatLng,
+                center: myLatLng
             });
             new google.maps.Marker({
                 position: myLatLng,
-                map,
+                map:map,
                 title: "{{ $tanah->tanah_desc }}",
                 label: "{{ $tanah->tanah_desc }}"                
             });
         }
 
-        window.initMap = initMap();
         //Load Google Maps---END
     </script>
 @endsection

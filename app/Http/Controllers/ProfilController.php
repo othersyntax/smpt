@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pengguna;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
@@ -27,7 +28,7 @@ class ProfilController extends Controller
                 $file = $req->file('user_image');
                 $ext = $file->getClientOriginalExtension();
                 $img_name = $req->user_nokp.'-profile.'.$ext;
-                $path = $req->file('user_image')->storeAs('public/profile/', $img_name);              
+                $path = $req->file('user_image')->store('public/profile/', $img_name);              
                 
                 $user->user_image = $img_name;
 

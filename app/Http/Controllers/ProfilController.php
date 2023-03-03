@@ -15,6 +15,8 @@ class ProfilController extends Controller
     }
 
     function simpan(Request $req){
+        // ddd($req);
+        // return $req->file('user_image')->store('profile');
         if(!empty(session('loginID'))){
             $user = Pengguna::find(session('loginID'));
             if(!empty($req->user_pass1) && !empty($req->user_pass2)){
@@ -25,14 +27,16 @@ class ProfilController extends Controller
             $user->user_email = $req->user_email;
 
             if($req->hasFile('user_image')){
+                // return $req->file('user_image')->store('profile');
                 $file = $req->file('user_image');
                 $ext = $file->getClientOriginalExtension();
                 $img_name = $req->user_nokp.'-profile.'.$ext;
-                $path = $req->file('user_image')->store('public/profile/', $img_name);              
+                $path = $req->file('user_image')->storeAs('profile', $img_name);              
                 
-                $user->user_image = $img_name;
+                $user->user_image = $path;
 
             }
+            // return $req->file('user_image')->store('profile');
             $user->user_updby = session('loginID');
             $simpan = $user->save();
 

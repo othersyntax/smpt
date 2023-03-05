@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FasilitiController;
 use App\Http\Controllers\PremisController;
-use App\Http\Controllers\PenilaianCOntroller;
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\IsuController;
 use App\Http\Controllers\BayaranController;

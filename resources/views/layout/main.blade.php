@@ -43,7 +43,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('storage/profile/'.session('loginImage')) }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ Storage::url(session('loginImage')) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="/profile/papar" class="d-block">{{ session('loginName') }}</a>
@@ -66,11 +66,11 @@
     <section class="content">
       @if (session()->has('msg'))
         <div class="row card">
-          <div class="col-md-12 card-body" id='msg' style="background-color: rgb(109, 236, 109);">
-            <div class="text-white">
-                {{ session('msg') }}
+            <div class="col-md-12 card-body" id='msg' style="background-color: rgb(131, 231, 131);">
+                <div class="text-white">
+                    {{ session('msg') }}
+                </div>
             </div>
-          </div>
         </div>
       @endif
       <div class="container-fluid">
@@ -109,11 +109,11 @@
 <script src="{{ asset('/template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/template/dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="{{ asset('/template/dist/js/demo.js') }}"></script> --}}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('/template/dist/js/pages/dashboard.js') }}"></script>
-<!-- addon js -->
 @yield('js')
+<script>
+  setTimeout(() => {
+    $('#msg').hide('slow');
+  }, 3000);
+</script>
 </body>
 </html>

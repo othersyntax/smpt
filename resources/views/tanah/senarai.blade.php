@@ -94,7 +94,8 @@
                         <tbody>
                             @php $no = $tanah->firstItem() @endphp
                             @if ($tanah->count() > 0)
-                                @foreach ($tanah as $tnh)                                        
+                                @foreach ($tanah as $tnh)
+                                    @can('list-tanah', $tnh)                                
                                     <tr>
                                         <td class="text-center">{{ $no++ }}</td>
                                         <td>{{ $tnh->tanah_no_lot ? $tnh->tanah_no_lot: 'Tiada Rekod' }}</i></td>
@@ -110,6 +111,7 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    @endcan 
                                 @endforeach
                             @else
                                 <tr>

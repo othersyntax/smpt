@@ -112,9 +112,9 @@ class PenggunaController extends Controller
             $user->user_name = $req->user_name;
             $user->user_nokp = $req->user_nokp;
             $user->user_email = $req->user_email;
-            $user->user_role = $req->user_role;
-            
             $user->user_jkn = $req->user_jkn;
+            $user->user_role = $req->user_role;
+            $user->user_status = $req->user_status;            
             $user->user_updby = session('loginID');
             $simpan = $user->save();
         }

@@ -42,8 +42,10 @@ class LoginController extends Controller
                     'loginID'=>$peng->user_id,
                     'loginName'=>$peng->user_name,
                     'loginNokp'=>$peng->user_nokp,
+                    'loginRole'=>$peng->user_role,
                     'loginImage'=>$peng->user_image,
-                    'loginState'=>$peng->user_state
+                    'loginState'=>$peng->user_state,
+                    'loginDaerah'=>$peng->namaPTJ->ptj_kod_daerah
                 ]);
                 return redirect('dashboard');
             }

@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Pengguna;
+use App\Models\Tanah;
 use Blade;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +29,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        Gate::define('list-tanah', function ($tanah) {
+            if(session('loginRole')==2){
+                //dd($user->namaPTJ->ptj_kod_negeri);
+                return session('loginState') === $tanah->tanah_kod_negeri;
+            }
+            else{
+                return session('loginDaerah') === $tanah->tanah_kod_daerah;
+            }
+            return true; //if Pentadbir 
+        });
 
         Blade::directive('convert', function ($money) {
             return "<?php echo number_format($money, 2); ?>";

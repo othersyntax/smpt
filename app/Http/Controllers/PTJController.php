@@ -95,6 +95,8 @@ class PTJController extends Controller
 
         $ptj->ptj_code = $req->ptj_code;
         $ptj->ptj_nama = $req->ptj_nama;
+        $ptj->ptj_kod_negeri = $req->kod_negeri1;
+        $ptj->ptj_kod_daerah = $req->kod_daerah1;
         $ptj->ptj_kod_bandar = $req->ptj_kod_bandar;
         $ptj->ptj_status = $req->ptj_status;
         // dd($ptj);

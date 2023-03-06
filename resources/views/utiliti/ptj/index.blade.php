@@ -145,7 +145,7 @@
                     @csrf
                     <input type="hidden" name="ptj_id" id="ptj_id">
                     <div class="modal-header">
-                        <h4 class="modal-title">Maklumat Mukim</h4>
+                        <h4 class="modal-title">Maklumat PTJ/PK</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -154,13 +154,13 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="user_nama" class="form-label">Kod Mukim</label>
+                                    <label for="user_nama" class="form-label">Kod PTJ/PK</label>
                                     {{ Form::text('ptj_code',null,['class'=>'form-control', 'id'=>'ptj_code']) }}
                                 </div>                                                           
                             </div>                            
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label for="ptj_nama" class="form-label">Mukim</label>
+                                    <label for="ptj_nama" class="form-label">Nama PTJ/PK</label>
                                     {{ Form::text('ptj_nama',null,['class'=>'form-control', 'id'=>'ptj_nama']) }}
                                 </div>
                             </div>

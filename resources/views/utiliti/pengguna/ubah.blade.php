@@ -97,9 +97,15 @@
                                     </div>
                                     <div class="form-group row">
                                         <label for="hadcapaian" class="col-sm-3 col-form-label">Had Capaian</label>
-                                        <div class="col-sm-9 err-msg">
+                                        <div class="col-sm-4 err-msg">
                                         {{ Form::select('user_role', [''=>'--Sila pilih--','1'=>'[1] - Pentadbir','2'=>'[2] - Pegawai','3'=>'[3] - Kakitangan'], $user->user_role, ['class'=>'form-control', 'id'=>'user_role']) }}
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="hadcapaian" class="col-sm-3 col-form-label">Status</label>
+                                        <div class="col-sm-4 err-msg">
+                                        {{ Form::select('user_status', ['1'=>'Aktif','2'=>'Tidak Aktif'], $user->user_status, ['class'=>'form-control', 'id'=>'user_status']) }}
+                                    </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-sm-3 col-sm-9">
